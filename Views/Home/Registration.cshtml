@@ -1,0 +1,84 @@
+﻿@{
+
+    ViewBag.title = "Registration ";
+
+
+}
+
+<a href="/home/contact">add new</a>
+
+<h2>regisration list</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>disease</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+    </tr>
+
+    @foreach (var item in ViewBag.data)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.name</td>
+            <td>@item.age</td>
+            <td>@item.Gender</td>
+            <td>@item.disease</td>
+            <td>
+                <form action="/Home/contact" method="get">
+                    <input type="hidden" name="id" id="id" value="@item.Id">
+                    <input type="submit" class="btn btn-primary" value="Edit" />
+                </form>
+
+            </td>
+            <td>
+                <form action="/Home/delete" method="post">
+                    <input type="hidden" name="id" id="id" value="@item.Id">
+                    <input type="submit" class="btn btn-danger" value="DELETE" />
+                </form>
+
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

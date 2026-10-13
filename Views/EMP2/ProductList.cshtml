@@ -1,0 +1,279 @@
+﻿
+@model List<SunnyPractice.Models.ProductLoginViewModel>
+
+@{
+
+    ViewBag.Title = "View";
+}
+
+@{
+    ViewBag.Title = "Product List";
+}
+
+<div class="container">
+
+    <h2 style="color:blue">PRODUCT LIST ........</h2>
+
+    <a href="/EMP2/products"
+       class="btn btn-success">
+        + Add Product
+    </a>
+
+    <br />
+    <br />
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <th>PID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Features</th>
+                <th>Image</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @item.Pid
+                    </td>
+
+                    <td>
+                        @item.Pname
+                    </td>
+
+                    <td>
+                        @item.category
+                    </td>
+
+                    <td>
+                        ₹ @item.Price
+                    </td>
+
+                    <td>
+                        @item.Gender
+                    </td>
+
+                    <td>
+                        @item.Address
+                    </td>
+
+
+                    <td>
+                        <div class="feature-container">
+
+                            @if (item.IsNew)
+                            {
+                                <span class="feature yes">✓ New</span>
+                            }
+
+                            @if (item.IsFeatured)
+                            {
+                                <span class="feature yes">✓ Featured</span>
+                            }
+
+                            @if (item.InStock)
+                            {
+                                <span class="feature yes">✓ In Stock</span>
+                            }
+
+                            @if (item.AvailableForDelivery)
+                            {
+                                <span class="feature yes">✓ Delivery</span>
+                            }
+
+                        </div>
+
+                    </td>
+
+                    <td>
+
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath"
+                                 width="80"
+                                 height="80"
+                                 style="object-fit:cover; border-radius:8px;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+
+                    </td>
+
+                    <td>
+                        @item.username
+                    </td>
+
+                    <td>
+                        @item.password
+                    </td>
+
+                    <td>
+                        <a href="@Url.Action("Products","EMP2",
+                                 new { Pid = item.Pid })"
+                           class="btn btn-primary btn-sm">
+                            Edit
+                        </a>
+                        <br /> 
+                       <br />
+                        <button type="button"
+                                class="btn btn-danger btn-sm deleteBtn"
+                                data-id="@item.Pid">
+                            Delete
+                        </button>
+
+                        @*<a href="@Url.Action("DeleteProduct","EMP2",
+         new { Pid = item.Pid })"
+        class="btn btn-danger btn-sm deleteBtn">
+         Delete
+         </a>*@
+</tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+/*<script>*/
+$(document).ready(function () {
+
+        $(".deleteBtn").click(function () {
+
+            var pid = $(this).data("id");
+
+             alert('hi')
+
+            if (!confirm("Are you sure you want to delete this product?")) {
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("DeleteProduct","EMP2")',
+                data: { Pid: pid },
+                type: 'POST',
+                success: function (response) {
+
+                   // alert(response.sunny);
+
+                    if (response.success) {
+                        location.reload();
+                    }
+                },
+
+                error: function (xhr) {
+
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+
+                    alert("Delete request failed.");
+                }
+            });
+
+        });
+
+    });
+</script>
+
+<td>
+
+
+
+    @*<div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+
+        }
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Pid</th>
+                <th>PName</th>
+                <th>category</th>
+                <th>price</th>
+                <th>username</th>
+                <th>password </th>
+                <th>IMAGES</th>
+                <th>UPDATE</th>
+                <th>DELETE</th>
+
+            </tr>
+
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Pid</td>
+                    <td>@item.Pname</td>
+                    <td>@item.category</td>
+                    <td>@item.Price</td>
+                    <td>@item.username</td>
+                    <td>@item.password</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@Url.Content(item.ImagePath)"
+                                 alt="@item.Pname"
+                                 style="
+                width:80px;
+                height:80px;
+                object-fit:cover;
+                border-radius:8px;
+             " />
+                        }
+                        else
+                        {
+                            <div>No Image</div>
+                        }
+                    </td>
+
+                    <td>
+                        <form action="/EMP2/products" method="get">
+                            <input type="hidden" name="Pid" id="Pid" value="@item.Pid">
+                            <input type="submit" class="btn btn-primary" value="Edit" />
+                        </form>
+
+                    </td>
+                    <td>
+                        <form action="/EMP2/DeleteProduct" method="post">
+                            <input type="hidden" name="pid" id="pid" value="@item.Pid">
+                            <input type="submit" class="btn btn-danger" value="DELETE" />
+
+                        </form>
+
+
+                    </td>
+
+                </tr>
+
+
+            }
+        </table>*@
+
+
+
+
+
+
+

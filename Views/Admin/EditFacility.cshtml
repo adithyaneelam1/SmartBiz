@@ -1,0 +1,170 @@
+﻿@model AdharshaHighSchool.Models.Facility
+
+@{
+    ViewBag.Title = "Edit Facility";
+}
+
+<style>
+
+    .form-header {
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        padding: 25px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .form-body {
+        background: white;
+        padding: 30px;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #374151;
+    }
+</style>
+
+
+<div class="mb-4">
+
+    <a href="@Url.Action("Facilities", "Admin")"
+       class="btn btn-outline-secondary">
+        ← Back to Facilities
+    </a>
+
+</div>
+
+
+<div class="form-header">
+
+    <h2 class="mb-1">
+        ✏️ Edit Facility
+    </h2>
+
+    <p class="mb-0">
+        Update facility information.
+    </p>
+
+</div>
+
+
+<div class="form-body">
+
+    @using (Html.BeginForm("EditFacility", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(x => x.FacilityId)
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Facility Name
+            </label>
+
+            @Html.TextBoxFor(x => x.FacilityName,
+                new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter facility name"
+                })
+
+            @Html.ValidationMessageFor(x => x.FacilityName,
+                "",
+                new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Description
+            </label>
+
+            @Html.TextAreaFor(x => x.Description,
+                new
+                {
+                    @class = "form-control",
+                    rows = 5,
+                    placeholder = "Enter facility description"
+                })
+
+        </div>
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Image URL
+            </label>
+
+            @Html.TextBoxFor(x => x.Image,
+                new
+                {
+                    @class = "form-control",
+                    placeholder = "/Content/Images/facility.jpg"
+                })
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-6 mb-4">
+
+                <label class="form-label">
+                    Display Order
+                </label>
+
+                @Html.TextBoxFor(x => x.DisplayOrder,
+                    new
+                    {
+                        @class = "form-control",
+                        type = "number"
+                    })
+
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                <div class="form-check form-switch mt-2">
+
+                    @Html.CheckBoxFor(x => x.IsActive,
+                        new { @class = "form-check-input" })
+
+                    <label class="form-check-label">
+                        Active
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-3">
+
+            <button type="submit"
+                    class="btn btn-primary">
+                💾 Update Facility
+            </button>
+
+            <a href="@Url.Action("Facilities", "Admin")"
+               class="btn btn-outline-secondary ms-2">
+                Cancel
+            </a>
+
+        </div>
+    }
+
+</div>

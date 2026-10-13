@@ -1,0 +1,615 @@
+﻿@model IEnumerable<AdharshaHighSchool.Models.Academic>
+
+@{
+    Layout = "~/Views/Shared/_SchoolLayout.cshtml";
+    ViewBag.Title = "Academics";
+}
+
+<style>
+
+    /* ==========================================
+       ACADEMICS HERO
+       ========================================== */
+
+    .academic-hero {
+        min-height: 330px;
+        background: linear-gradient( 135deg, rgba(13, 110, 253, .92), rgba(25, 135, 84, .80) ), url('/Folder1/classroom.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .academic-hero-content {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .academic-hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 15px;
+    }
+
+    .academic-hero p {
+        font-size: 19px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+
+    /* ==========================================
+       COMMON SECTION
+       ========================================== */
+
+    .academic-section {
+        padding: 65px 0;
+    }
+
+    .academic-title {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+        .academic-title .subtitle {
+            color: #0d6efd;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .academic-title h2 {
+            color: #102a43;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .academic-title p {
+            color: #6c757d;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+
+    /* ==========================================
+       ACADEMIC CARDS
+       ========================================== */
+
+    .academic-card {
+        height: 100%;
+        background: white;
+        border-radius: 18px;
+        padding: 30px 25px;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+        transition: all .3s ease;
+        border-top: 4px solid #0d6efd;
+    }
+
+        .academic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, .13);
+        }
+
+    .academic-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 16px;
+        background: #e8f2ff;
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 29px;
+        margin-bottom: 20px;
+    }
+
+    .academic-card h3 {
+        color: #102a43;
+        font-size: 22px;
+        font-weight: 750;
+        margin-bottom: 12px;
+    }
+
+    .academic-card p {
+        color: #666;
+        font-size: 15px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+
+    /* ==========================================
+       DIFFERENT CARD COLORS
+       ========================================== */
+
+    .academic-card:nth-child(2) {
+        border-top-color: #198754;
+    }
+
+        .academic-card:nth-child(2) .academic-icon {
+            background: #d1e7dd;
+            color: #198754;
+        }
+
+    .academic-card:nth-child(3) {
+        border-top-color: #fd7e14;
+    }
+
+        .academic-card:nth-child(3) .academic-icon {
+            background: #ffe5c2;
+            color: #fd7e14;
+        }
+
+    .academic-card:nth-child(4) {
+        border-top-color: #6f42c1;
+    }
+
+        .academic-card:nth-child(4) .academic-icon {
+            background: #e2d9f3;
+            color: #6f42c1;
+        }
+
+    .academic-card:nth-child(5) {
+        border-top-color: #d63384;
+    }
+
+        .academic-card:nth-child(5) .academic-icon {
+            background: #f7d6e6;
+            color: #d63384;
+        }
+
+
+    /* ==========================================
+       LEARNING SECTION
+       ========================================== */
+
+    .learning-section {
+        background: #f5f9ff;
+    }
+
+    .learning-image {
+        width: 100%;
+        height: 390px;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+    }
+
+    .learning-content {
+        padding: 15px 10px;
+    }
+
+        .learning-content h2 {
+            color: #102a43;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .learning-content > p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+    .learning-point {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 18px;
+    }
+
+    .learning-check {
+        min-width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #d1e7dd;
+        color: #198754;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 13px;
+        font-weight: bold;
+    }
+
+    .learning-point h5 {
+        color: #102a43;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .learning-point p {
+        color: #6c757d;
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+
+    /* ==========================================
+       EMPTY DATA
+       ========================================== */
+
+    .academic-empty {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, .07);
+    }
+
+    .academic-empty-icon {
+        font-size: 55px;
+        margin-bottom: 15px;
+    }
+
+    .academic-empty h3 {
+        color: #102a43;
+        font-weight: 700;
+    }
+
+    .academic-empty p {
+        color: #6c757d;
+    }
+
+
+    /* ==========================================
+       CTA
+       ========================================== */
+
+    .academic-cta {
+        background: linear-gradient( 135deg, #0d6efd, #6610f2 );
+        color: white;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+        .academic-cta h2 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .academic-cta p {
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        .academic-cta .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @@media (max-width: 768px) {
+
+        .academic-hero {
+            min-height: 280px;
+        }
+
+            .academic-hero h1 {
+                font-size: 36px;
+            }
+
+            .academic-hero p {
+                font-size: 16px;
+            }
+
+        .academic-section {
+            padding: 45px 15px;
+        }
+
+        .academic-title h2 {
+            font-size: 28px;
+        }
+
+        .learning-image {
+            height: 280px;
+            margin-bottom: 25px;
+        }
+
+        .learning-content h2 {
+            font-size: 27px;
+        }
+
+        .academic-cta h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+
+<!-- ==================================================
+     HERO
+     ================================================== -->
+
+<section class="academic-hero">
+
+    <div class="container">
+
+        <div class="academic-hero-content">
+
+            <h1>
+                Academics
+            </h1>
+
+            <p>
+                Building strong foundations through quality
+                education, learning and student development.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     ACADEMIC PROGRAMS
+     ================================================== -->
+
+<section class="academic-section">
+
+    <div class="container">
+
+        <div class="academic-title">
+
+            <div class="subtitle">
+                Learning at Adharsha
+            </div>
+
+            <h2>
+                Our Academic Programs
+            </h2>
+
+            <p>
+                We provide a supportive learning environment
+                that encourages students to learn, explore
+                and develop their abilities.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <div class="academic-card">
+
+                            <div class="academic-icon">
+
+                                📚
+
+                            </div>
+
+                            <h3>
+                                @item.Title
+                            </h3>
+
+                            <p>
+                                @item.Description
+                            </p>
+
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+
+                    <div class="academic-empty">
+
+                        <div class="academic-empty-icon">
+                            📚
+                        </div>
+
+                        <h3>
+                            Academic Information Coming Soon
+                        </h3>
+
+                        <p>
+                            Academic details will be updated shortly.
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     LEARNING APPROACH
+     ================================================== -->
+
+<section class="academic-section learning-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- Image -->
+
+            <div class="col-lg-6 mb-4 mb-lg-0">
+
+                <img src="~/Folder1/classroom.jpg"
+                     class="learning-image"
+                     alt="Classroom Learning" />
+
+            </div>
+
+
+            <!-- Content -->
+
+            <div class="col-lg-6">
+
+                <div class="learning-content">
+
+                    <div class="academic-title text-left mb-3">
+
+                        <div class="subtitle">
+                            Our Approach
+                        </div>
+
+                        <h2>
+                            Learning Beyond the Classroom
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Education is not limited to textbooks.
+                        We encourage students to develop knowledge,
+                        creativity, confidence and teamwork.
+                    </p>
+
+
+                    <div class="learning-point">
+
+                        <div class="learning-check">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Concept-Based Learning
+                            </h5>
+
+                            <p>
+                                Encouraging students to understand
+                                concepts and apply their knowledge.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="learning-point">
+
+                        <div class="learning-check">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Student Development
+                            </h5>
+
+                            <p>
+                                Supporting academic, personal and
+                                social development.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="learning-point">
+
+                        <div class="learning-check">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Creativity & Activities
+                            </h5>
+
+                            <p>
+                                Providing opportunities for students
+                                to explore their interests and talents.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="learning-point">
+
+                        <div class="learning-check">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Teamwork & Values
+                            </h5>
+
+                            <p>
+                                Developing cooperation, discipline,
+                                responsibility and respect.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     CTA
+     ================================================== -->
+
+<section class="academic-cta">
+
+    <div class="container">
+
+        <h2>
+            Education for a Brighter Future
+        </h2>
+
+        <p>
+            Explore our facilities and discover the
+            learning environment at Adharsha High School.
+        </p>
+
+        <a href="@Url.Action("Facilities", "School")"
+           class="btn btn-light btn-lg">
+
+            🏫 Explore Our Facilities
+
+        </a>
+
+    </div>
+
+</section>

@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "Country State City";
+}
+
+<h2>Country - State - City</h2>
+
+<div class="form-group">
+
+    <label>Country</label>
+
+    @Html.DropDownList(
+        "countryid",
+        ViewBag.CountryList as SelectList,
+        "-- Select Country --",
+        new
+        {
+            @class = "form-control",
+            id = "countryDropdown"
+        }
+    )
+
+</div>
+<br />
+
+<div class="form-group">
+
+    <label>State</label>
+
+    <select id="stateDropdown" class="form-control">
+
+        <option value="">
+            -- Select State --
+        </option>
+
+    </select>
+
+</div>
+<br />
+
+<div class="form-group">
+
+    <label>City</label>
+
+    <select id="cityDropdown" class="form-control">
+
+        <option value="">
+            -- Select City --
+        </option>
+
+    </select>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+
+    // Country → State
+    $("#countryDropdown").change(function () {
+
+        var countryid = $(this).val();
+
+        // Clear State
+        $("#stateDropdown").empty();
+
+        $("#stateDropdown").append(
+            '<option value="">-- Select State --</option>'
+        );
+
+        // Clear City
+        $("#cityDropdown").empty();
+
+        $("#cityDropdown").append(
+            '<option value="">-- Select City --</option>'
+        );
+
+        if (countryid == "") {
+            return;
+        }
+
+        $.ajax({
+
+            url: '@Url.Action("GetStates", "Drop")',
+
+            type: "GET",
+
+            data: {
+                countryid: countryid
+            },
+
+            success: function (data) {
+
+                $.each(data, function (index, item) {
+
+                    $("#stateDropdown").append(
+                        '<option value="' +
+                        item.sid +
+                        '">' +
+                        item.sname +
+                        '</option>'
+                    );
+
+                });
+
+            },
+
+            error: function () {
+
+                alert("Error loading states.");
+
+            }
+
+        });
+
+    });
+
+
+    // State → City
+    $("#stateDropdown").change(function () {
+
+        var stateid = $(this).val();
+
+        // Clear City
+        $("#cityDropdown").empty();
+
+        $("#cityDropdown").append(
+            '<option value="">-- Select City --</option>'
+        );
+
+        if (stateid == "") {
+            return;
+        }
+
+        $.ajax({
+
+            url: '@Url.Action("GetCities", "Drop")',
+
+            type: "GET",
+
+            data: {
+                stateid: stateid
+            },
+
+            success: function (data) {
+
+                $.each(data, function (index, item) {
+
+                    $("#cityDropdown").append(
+                        '<option value="' +
+                        item.cid +
+                        '">' +
+                        item.cname +
+                        '</option>'
+                    );
+
+                });
+
+            },
+
+            error: function () {
+
+                alert("Error loading cities.");
+
+            }
+
+        });
+
+    });
+
+</script>

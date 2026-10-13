@@ -1,0 +1,28 @@
+﻿
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2 style="color:blue">Dashboard.in........  </h2>
+
+<p>TIME:@DateTime.Now</p>
+
+<<form action="/EMP/Dashboard" login method="post">
+    <br> <br />
+
+    <label for="username">username:</label>
+
+    <input type="text" id="username" name="username" value="@ViewBag.username" class="form-control" /><br><br />
+
+    <label for="password">password: </label>
+
+    <input type="password" id="password" name="password" value="@ViewBag.password" class="form-control" /><br><br>
+
+    <input type="submit" value="submit" class="btn btn-primary" />
+
+
+</form>
+
+
+

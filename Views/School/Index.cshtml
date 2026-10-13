@@ -1,0 +1,1512 @@
+﻿
+@model AdharshaHighSchool.Models.SchoolInfo
+
+@{
+    Layout = "~/Views/Shared/_SchoolLayout.cshtml";
+    ViewBag.Title = "Home";
+}
+
+<style>
+
+    /* =====================================================
+       HOME PAGE - GLOBAL
+       ===================================================== 
+
+    .home-page {
+        overflow: hidden;
+        background: #ffffff;
+        color: #1f2937;
+    }
+
+    .home-section {
+        padding: 85px 0;
+    }
+
+    .home-heading {
+        text-align: center;
+        max-width: 760px;
+        margin: 0 auto 50px;
+    }
+
+        .home-heading .eyebrow {
+            display: inline-block;
+            color: #0d6efd;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .home-heading h2 {
+            font-size: 38px;
+            font-weight: 800;
+            .
+                32
+            color: #102a43;
+            margin-bottom: 15px;
+        }
+
+        .home-heading p {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    .home-hero {
+        position: relative;
+        min-height: 650px;
+        display: flex;
+        align-items: center;
+        background: linear-gradient( 90deg, rgba(3, 25, 63, .92) 0%, rgba(5, 45, 100, .78) 48%, rgba(5, 45, 100, .28) 100% ), url('/Folder1/school-hero.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+        .home-hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 90px;
+            background: linear-gradient( to bottom, transparent, #ffffff );
+        }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 720px;
+        color: white;
+        padding: 70px 15px;
+    }
+
+    .hero-logo-box {
+        width: 125px;
+        height: 125px;
+        background: rgba(255,255,255,.96);
+        border-radius: 25px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        box-shadow: 0 15px 40px rgba(0,0,0,.25);
+    }
+
+    .hero-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        padding: 9px 18px;
+        border-radius: 30px;
+        background: rgba(255,255,255,.14);
+        border: 1px solid rgba(255,255,255,.35);
+        backdrop-filter: blur(8px);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .hero-content h1 {
+        font-size: 58px;
+        line-height: 1.08;
+        font-weight: 900;
+        margin-bottom: 18px;
+        text-shadow: 0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .hero-highlight {
+        color: #ffd43b;
+    }
+
+    .hero-content p {
+        font-size: 19px;
+        line-height: 1.8;
+        color: #eef6ff;
+        margin-bottom: 30px;
+        max-width: 650px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero-btn-primary {
+        background: #ffb703;
+        color: #172b4d !important;
+        border: none;
+        padding: 13px 26px;
+        border-radius: 10px;
+        font-weight: 800;
+        text-decoration: none !important;
+        transition: .3s;
+    }
+
+        .hero-btn-primary:hover {
+            background: #ffc928;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,183,3,.30);
+        }
+
+    .hero-btn-outline {
+        background: rgba(255,255,255,.10);
+        color: white !important;
+        border: 1px solid rgba(255,255,255,.65);
+        padding: 12px 26px;
+        border-radius: 10px;
+        font-weight: 700;
+        text-decoration: none !important;
+        transition: .3s;
+    }
+
+        .hero-btn-outline:hover {
+            background: white;
+            color: #0d47a1 !important;
+            transform: translateY(-3px);
+        }
+
+
+    /* =====================================================
+       STATISTICS
+       ===================================================== */
+
+    .stats-wrapper {
+        position: relative;
+        z-index: 5;
+        margin-top: -55px;
+    }
+
+    .stats-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 45px rgba(16,42,67,.12);
+        padding: 10px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 25px 15px;
+        position: relative;
+    }
+
+        .stat-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 25%;
+            width: 1px;
+            height: 50%;
+            background: #e5e7eb;
+        }
+
+    .stat-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .stat-number {
+        font-size: 34px;
+        font-weight: 900;
+        color: #0d6efd;
+        line-height: 1.1;
+    }
+
+    .stat-label {
+        color: #6b7280;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+
+    /* =====================================================
+       WELCOME SECTION
+       ===================================================== */
+
+    .welcome-section {
+        padding: 95px 0 80px;
+    }
+
+    .welcome-image-wrap {
+        position: relative;
+    }
+
+    .welcome-image {
+        width: 100%;
+        height: 430px;
+        object-fit: cover;
+        border-radius: 25px;
+        box-shadow: 0 18px 45px rgba(0,0,0,.14);
+    }
+
+    .welcome-image-badge {
+        position: absolute;
+        right: -20px;
+        bottom: 25px;
+        background: linear-gradient(135deg, #0d6efd, #084298);
+        color: white;
+        padding: 20px 25px;
+        border-radius: 18px;
+        box-shadow: 0 12px 30px rgba(13,110,253,.25);
+    }
+
+        .welcome-image-badge strong {
+            display: block;
+            font-size: 25px;
+        }
+
+        .welcome-image-badge span {
+            font-size: 13px;
+            opacity: .9;
+        }
+
+    .welcome-content {
+        padding-left: 35px;
+    }
+
+        .welcome-content .eyebrow {
+            color: #0d6efd;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .welcome-content h2 {
+            color: #102a43;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .welcome-content p {
+            color: #5f6c7b;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+    .welcome-check {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 15px;
+        color: #374151;
+        font-weight: 600;
+    }
+
+    .welcome-check-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #e8f2ff;
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+    }
+
+
+    /* =====================================================
+       SCHOOL LIFE
+       ===================================================== */
+
+    .life-section {
+        background: #f5f9ff;
+    }
+
+    .life-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        height: 300px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.10);
+        cursor: pointer;
+    }
+
+        .life-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .life-card:hover img {
+            transform: scale(1.08);
+        }
+
+    .life-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient( to top, rgba(3,25,63,.88), rgba(3,25,63,.05) 70% );
+        display: flex;
+        align-items: flex-end;
+        padding: 25px;
+    }
+
+        .life-overlay h3 {
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .life-overlay p {
+            color: #dbeafe;
+            margin: 5px 0 0;
+            font-size: 13px;
+        }
+
+
+    /* =====================================================
+       VISION MISSION
+       ===================================================== */
+
+    .purpose-card {
+        height: 100%;
+        padding: 35px;
+        border-radius: 22px;
+        background: white;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 8px 30px rgba(0,0,0,.06);
+        transition: .3s;
+    }
+
+        .purpose-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,.10);
+        }
+
+    .purpose-icon {
+        width: 62px;
+        height: 62px;
+        border-radius: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 29px;
+        margin-bottom: 20px;
+    }
+
+    .vision-icon {
+        background: #e8f2ff;
+    }
+
+    .mission-icon {
+        background: #fff4df;
+    }
+
+    .purpose-card h3 {
+        color: #102a43;
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .purpose-card p {
+        color: #6b7280;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+
+    /* =====================================================
+       PRINCIPAL MESSAGE
+       ===================================================== */
+
+    .principal-section {
+        background: linear-gradient( 135deg, #062a63, #0d6efd );
+        color: white;
+    }
+
+    .principal-card {
+        background: rgba(255,255,255,.10);
+        border: 1px solid rgba(255,255,255,.20);
+        border-radius: 25px;
+        padding: 45px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    }
+
+    .principal-photo {
+        width: 125px;
+        height: 125px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 55px;
+        margin: auto;
+        box-shadow: 0 12px 30px rgba(0,0,0,.20);
+    }
+
+    .principal-card h3 {
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .principal-role {
+        color: #ffd43b;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .principal-message {
+        color: #e7f1ff;
+        font-size: 17px;
+        line-height: 1.9;
+        margin: 0;
+    }
+
+
+    /* =====================================================
+       GALLERY
+       ===================================================== */
+
+    .home-gallery {
+        overflow: hidden;
+        height: 240px;
+        border-radius: 18px;
+        position: relative;
+        box-shadow: 0 8px 25px rgba(0,0,0,.10);
+    }
+
+        .home-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+        }
+
+        .home-gallery:hover img {
+            transform: scale(1.08);
+        }
+
+    .home-gallery-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        padding: 18px;
+        background: linear-gradient( to top, rgba(0,0,0,.65), transparent 65% );
+    }
+
+        .home-gallery-overlay span {
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+
+    /* =====================================================
+       CTA
+       ===================================================== */
+
+    .home-cta {
+        position: relative;
+        padding: 85px 20px;
+        text-align: center;
+        color: white;
+        background: linear-gradient( 135deg, rgba(5,45,100,.95), rgba(13,110,253,.90) ), url('/Folder1/school-building.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+        .home-cta h2 {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .home-cta p {
+            color: #dbeafe;
+            font-size: 17px;
+            margin-bottom: 28px;
+        }
+
+    .cta-button {
+        display: inline-block;
+        background: #ffb703;
+        color: #172b4d !important;
+        padding: 14px 30px;
+        border-radius: 10px;
+        text-decoration: none !important;
+        font-weight: 800;
+        transition: .3s;
+    }
+
+        .cta-button:hover {
+            background: #ffc928;
+            transform: translateY(-3px);
+        }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @@media (max-width: 991px) {
+
+        .hero-content h1 {
+            font-size: 48px;
+        }
+
+        .welcome-content {
+            padding-left: 0;
+            margin-top: 35px;
+        }
+
+        .welcome-image-badge {
+            right: 15px;
+        }
+
+        .stat-item:not(:last-child)::after {
+            display: none;
+        }
+    }
+
+
+    @@media (max-width: 768px) {
+
+        .home-hero {
+            min-height: 620px;
+            background-position: 62% center;
+        }
+
+        .hero-content {
+            padding: 55px 15px;
+        }
+
+        .hero-logo-box {
+            width: 100px;
+            height: 100px;
+        }
+
+        .hero-content h1 {
+            font-size: 38px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+        }
+
+        .hero-buttons {
+            display: block;
+        }
+
+            .hero-buttons a {
+                display: block;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+        .home-section {
+            padding: 60px 15px;
+        }
+
+        .home-heading h2,
+        .welcome-content h2 {
+            font-size: 29px;
+        }
+
+        .welcome-image {
+            height: 300px;
+        }
+
+        .welcome-image-badge {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            display: inline-block;
+            margin-top: -35px;
+            margin-left: 20px;
+        }
+
+        .life-card {
+            height: 240px;
+        }
+
+        .principal-card {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+            .principal-card h3 {
+                margin-top: 25px;
+                font-size: 25px;
+            }
+
+        .home-cta h2 {
+            font-size: 30px;
+        }
+    }
+</style>
+
+
+<div class="home-page">
+
+
+    <!-- ==================================================
+         HERO
+         ================================================== -->
+
+    <section class="home-hero">
+
+        <div class="container">
+
+            <div class="hero-content">
+
+                <div class="hero-logo-box">
+
+                    <img src="~/Folder1/school-logo.png"
+                         class="hero-logo"
+                         alt="Adharsha High School Logo" />
+
+                </div>
+
+
+                <div class="hero-badge">
+                    🎓 Welcome to Adharsha High School
+                </div>
+
+
+                <h1>
+
+                    @Model.SchoolName
+
+                    <br />
+
+                    <span class="hero-highlight">
+                        Inspiring Tomorrow
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    @Model.AboutUs
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="@Url.Action("About", "School")"
+                       class="hero-btn-primary">
+
+                        Discover Our School →
+
+                    </a>
+
+
+                    <a href="@Url.Action("Contact", "School")"
+                       class="hero-btn-outline">
+
+                        ☎ Contact Us
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         STATISTICS
+         ================================================== -->
+
+    <section class="stats-wrapper">
+
+        <div class="container">
+
+            <div class="stats-card">
+
+                <div class="row">
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon">
+                                👨‍🎓
+                            </div>
+
+                            <div class="stat-number">
+                                500+
+                            </div>
+
+                            <div class="stat-label">
+                                Students
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon">
+                                👩‍🏫
+                            </div>
+
+                            <div class="stat-number">
+                                25+
+                            </div>
+
+                            <div class="stat-label">
+                                Teachers
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon">
+                                🏆
+                            </div>
+
+                            <div class="stat-number">
+                                20+
+                            </div>
+
+                            <div class="stat-label">
+                                Years of Excellence
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon">
+                                ⭐
+                            </div>
+
+                            <div class="stat-number">
+                                100%
+                            </div>
+
+                            <div class="stat-label">
+                                Commitment
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         WELCOME
+         ================================================== -->
+
+    <section class="welcome-section">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+
+                <div class="col-lg-6">
+
+                    <div class="welcome-image-wrap">
+
+                        <img src="~/Folder1/school-building.jpg"
+                             class="welcome-image"
+                             alt="Adharsha High School Building" />
+
+                        <div class="welcome-image-badge">
+
+                            <strong>Quality</strong>
+
+                            <span>Education & Values</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <div class="welcome-content">
+
+                        <div class="eyebrow">
+                            About Our School
+                        </div>
+
+                        <h2>
+                            Welcome to
+                            @Model.SchoolName
+                        </h2>
+
+                        <p>
+                            @Model.AboutUs
+                        </p>
+
+                        <p>
+                            We aim to create a supportive environment
+                            where students can learn, grow, discover
+                            their abilities and move confidently
+                            towards a bright future.
+                        </p>
+
+
+                        <div class="welcome-check">
+
+                            <span class="welcome-check-icon">
+                                ✓
+                            </span>
+
+                            Quality Education
+
+                        </div>
+
+
+                        <div class="welcome-check">
+
+                            <span class="welcome-check-icon">
+                                ✓
+                            </span>
+
+                            Strong Values
+
+                        </div>
+
+
+                        <div class="welcome-check">
+
+                            <span class="welcome-check-icon">
+                                ✓
+                            </span>
+
+                            Student Development
+
+                        </div>
+
+
+                        <div class="mt-4">
+
+                            <a href="@Url.Action("About", "School")"
+                               class="btn btn-primary">
+
+                                Learn More About Us →
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         SCHOOL LIFE
+         ================================================== -->
+
+    <section class="home-section life-section">
+
+        <div class="container">
+
+            <div class="home-heading">
+
+                <span class="eyebrow">
+                    Learning & Activities
+                </span>
+
+                <h2>
+                    Experience School Life
+                </h2>
+
+                <p>
+                    A balanced learning environment that encourages
+                    knowledge, creativity, confidence and participation.
+                </p>
+
+            </div>
+
+
+            <div class="row">
+
+
+                <!-- CLASSROOM -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="life-card">
+
+                        <img src="~/Folder1/classroom.jpg"
+                             alt="Classroom" />
+
+                        <div class="life-overlay">
+
+                            <div>
+
+                                <h3>
+                                    Smart Learning
+                                </h3>
+
+                                <p>
+                                    Building strong academic foundations.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCIENCE -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="life-card">
+
+                        <img src="~/Folder1/science-lab.jpg"
+                             alt="Science Laboratory" />
+
+                        <div class="life-overlay">
+
+                            <div>
+
+                                <h3>
+                                    Science & Discovery
+                                </h3>
+
+                                <p>
+                                    Encouraging curiosity and exploration.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPUTER -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="life-card">
+
+                        <img src="~/Folder1/computer-lab.jpg"
+                             alt="Computer Lab" />
+
+                        <div class="life-overlay">
+
+                            <div>
+
+                                <h3>
+                                    Digital Learning
+                                </h3>
+
+                                <p>
+                                    Preparing students for a changing world.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LIBRARY -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="life-card">
+
+                        <img src="~/Folder1/library.jpg"
+                             alt="School Library" />
+
+                        <div class="life-overlay">
+
+                            <div>
+
+                                <h3>
+                                    Library
+                                </h3>
+
+                                <p>
+                                    Developing reading and knowledge habits.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPORTS -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="life-card">
+
+                        <img src="~/Folder1/sports.jpg"
+                             alt="School Sports" />
+
+                        <div class="life-overlay">
+
+                            <div>
+
+                                <h3>
+                                    Sports & Fitness
+                                </h3>
+
+                                <p>
+                                    Building teamwork and healthy habits.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVITIES -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="life-card">
+
+                        <img src="~/Folder1/activities.jpg"
+                             alt="School Activities" />
+
+                        <div class="life-overlay">
+
+                            <div>
+
+                                <h3>
+                                    Student Activities
+                                </h3>
+
+                                <p>
+                                    Learning beyond the classroom.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         VISION & MISSION
+         ================================================== -->
+
+    <section class="home-section">
+
+        <div class="container">
+
+            <div class="home-heading">
+
+                <span class="eyebrow">
+                    Our Purpose
+                </span>
+
+                <h2>
+                    Vision & Mission
+                </h2>
+
+                <p>
+                    The values that guide our school and
+                    educational journey.
+                </p>
+
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-md-6 mb-4">
+
+                    <div class="purpose-card">
+
+                        <div class="purpose-icon vision-icon">
+                            🎯
+                        </div>
+
+                        <h3>
+                            Our Vision
+                        </h3>
+
+                        <p>
+                            @Model.Vision
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <div class="purpose-card">
+
+                        <div class="purpose-icon mission-icon">
+                            🚀
+                        </div>
+
+                        <h3>
+                            Our Mission
+                        </h3>
+
+                        <p>
+                            @Model.Mission
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PRINCIPAL MESSAGE
+         ================================================== -->
+
+    <section class="home-section principal-section">
+
+        <div class="container">
+
+            <div class="home-heading">
+
+                <span class="eyebrow"
+                      style="color:#ffd43b;">
+
+                    School Leadership
+
+                </span>
+
+                <h2 style="color:white;">
+                    Principal's Message
+                </h2>
+
+            </div>
+
+
+            <div class="principal-card">
+
+                <div class="row align-items-center">
+
+
+                    <div class="col-lg-3 text-center">
+
+                        <div class="principal-photo">
+                            👨‍🏫
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-9">
+
+                        <h3>
+                            @Model.PrincipalName
+                        </h3>
+
+                        <div class="principal-role">
+                            Principal
+                        </div>
+
+                        <p class="principal-message">
+
+                            "@Model.PrincipalMessage"
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         GALLERY
+         ================================================== -->
+
+    <section class="home-section">
+
+        <div class="container">
+
+            <div class="home-heading">
+
+                <span class="eyebrow">
+                    Memories & Moments
+                </span>
+
+                <h2>
+                    Our School Gallery
+                </h2>
+
+                <p>
+                    A glimpse of learning, activities
+                    and memorable moments.
+                </p>
+
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-lg-3 col-6 mb-4">
+
+                    <div class="home-gallery">
+
+                        <img src="~/Folder1/school-building.jpg"
+                             alt="School Building" />
+
+                        <div class="home-gallery-overlay">
+
+                            <span>
+                                Our Campus
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-6 mb-4">
+
+                    <div class="home-gallery">
+
+                        <img src="~/Folder1/students.jpg"
+                             alt="Students" />
+
+                        <div class="home-gallery-overlay">
+
+                            <span>
+                                Our Students
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-6 mb-4">
+
+                    <div class="home-gallery">
+
+                        <img src="~/Folder1/sports.jpg"
+                             alt="Sports" />
+
+                        <div class="home-gallery-overlay">
+
+                            <span>
+                                Sports
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-6 mb-4">
+
+                    <div class="home-gallery">
+
+                        <img src="~/Folder1/activities.jpg"
+                             alt="School Activities" />
+
+                        <div class="home-gallery-overlay">
+
+                            <span>
+                                Activities
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="text-center mt-3">
+
+                <a href="@Url.Action("Gallery", "School")"
+                   class="btn btn-primary btn-lg">
+
+                    View Full Gallery →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         FINAL CTA
+         ================================================== -->
+
+    <section class="home-cta">
+
+        <div class="container">
+
+            <h2>
+                Build a Bright Future With Us
+            </h2>
+
+            <p>
+                Discover quality education, strong values
+                and a supportive learning environment.
+            </p>
+
+            <a href="@Url.Action("Contact", "School")"
+               class="cta-button">
+
+                ☎ Contact Adharsha High School
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

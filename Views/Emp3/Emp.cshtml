@@ -1,0 +1,269 @@
+﻿@model SunnyPractice.Models.EMP3
+
+<h2>
+    @(Model.Eid > 0
+        ? "UPDATE EMPLOYEE"
+        : "INSERT EMPLOYEE")
+</h2>
+
+
+<!-- =========================================
+     EMPLOYEE ID
+     ========================================= -->
+
+<div>
+
+    <label>Employee ID:</label>
+
+    <br />
+
+    @Html.TextBoxFor(
+        m => m.Eid,
+        new
+        {
+            id = "Eid",
+            @class = "form-control",
+            @readonly = "readonly"
+        })
+
+</div>
+
+<br />
+
+
+<!-- =========================================
+     EMPLOYEE NAME
+     ========================================= -->
+
+<div>
+
+    <label>Employee Name:</label>
+
+    <br />
+
+    @Html.TextBoxFor(
+        m => m.Ename,
+        new
+        {
+            id = "Ename",
+            @class = "form-control",
+            placeholder = "Enter employee name"
+        })
+
+</div>
+
+<br />
+
+
+<!-- =========================================
+     SALARY
+     ========================================= -->
+
+<div>
+
+    <label>Salary:</label>
+
+    <br />
+
+    @Html.TextBoxFor(
+        m => m.salary,
+        new
+        {
+            id = "salary",
+            @class = "form-control",
+            placeholder = "Enter salary"
+        })
+
+</div>
+
+<br />
+
+
+<!-- =========================================
+     SAVE / UPDATE BUTTON
+     ========================================= -->
+
+<button type="button"
+        id="btnSave"
+        class="btn btn-success">
+
+    @(Model.Eid > 0
+        ? "Update Employee"
+        : "Save Employee")
+
+</button>
+
+
+<!-- =========================================
+     CLEAR BUTTON
+     ========================================= -->
+
+<button type="button"
+        id="btnClear"
+        class="btn btn-secondary">
+
+    Clear
+
+</button>
+
+
+<!-- =========================================
+     EMPLOYEE LIST
+     ========================================= -->
+
+<a href="@Url.Action("Emplist", "Emp3")"
+   class="btn btn-secondary">
+
+    Employee List
+
+</a>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<script>
+
+ 
+ /* SAVE / UPDATE*/
+   
+
+    $("#btnSave").click(function () {
+
+        var Eid = $("#Eid").val();
+
+        var Ename = $("#Ename").val();
+
+        var salary = $("#salary").val();
+
+
+        // Validation
+
+        if (Ename == "") {
+
+            alert("Please enter employee name.");
+
+            return;
+        }
+
+
+        if (salary == "") {
+
+            alert("Please enter salary.");
+
+            return;
+        }
+
+
+     
+       /* INSERT*/
+      
+
+        if (Eid == "" || Eid == "0") {
+
+            $.ajax({
+
+                url: '@Url.Action("Create", "Emp3")',
+
+                type: "POST",
+
+                data: {
+
+                    Ename: Ename,
+
+                    salary: salary
+
+                },
+
+                success: function (data) {
+
+                    if (data.success) {
+
+                        alert("Employee inserted successfully!");
+
+                        window.location.href =
+                            '@Url.Action("Emplist", "Emp3")';
+
+                    }
+                    else {
+
+                        alert(data.message);
+
+                    }
+
+                },
+
+                error: function () {
+
+                    alert("Error inserting employee.");
+
+                }
+
+            });
+
+        }
+
+
+      
+/*   UPDATE*/
+    
+
+        else {
+
+            $.ajax({
+
+                url: '@Url.Action("Edit", "Emp3")',
+
+                type: "POST",
+
+                data: {
+
+                    Eid: Eid,
+
+                    Ename: Ename,
+
+                    salary: salary
+
+                },
+
+                success: function (data) {
+
+                    if (data.success) {
+
+                        alert("Employee updated successfully!");
+
+                        window.location.href =
+                            '@Url.Action("Emplist", "Emp3")';
+
+                    }
+                    else {
+
+                        alert(data.message);
+
+                    }
+
+                },
+
+                error: function () {
+
+                    alert("Error updating employee.");
+
+                }
+
+            });
+
+        }
+
+    });
+
+
+    $("#btnClear").click(function () {
+
+        $("#Eid").val("");
+
+        $("#Ename").val("");
+
+        $("#salary").val("");
+
+    });
+
+</script>

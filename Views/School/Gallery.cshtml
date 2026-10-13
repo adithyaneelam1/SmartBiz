@@ -1,0 +1,618 @@
+﻿@model IEnumerable<AdharshaHighSchool.Models.Gallery>
+
+@{
+    Layout = "~/Views/Shared/_SchoolLayout.cshtml";
+    ViewBag.Title = "Gallery";
+}
+
+<style>
+
+    /* ==========================================
+       GALLERY HERO
+       ========================================== */
+
+    .gallery-hero {
+        min-height: 330px;
+        background: linear-gradient( 135deg, rgba(13, 110, 253, .90), rgba(214, 51, 132, .80) ), url('/Folder1/activities.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .gallery-hero-content {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .gallery-hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 15px;
+    }
+
+    .gallery-hero p {
+        font-size: 19px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+
+    /* ==========================================
+       GALLERY SECTION
+       ========================================== */
+
+    .gallery-section {
+        padding: 65px 0;
+    }
+
+    .gallery-title {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+        .gallery-title .subtitle {
+            color: #0d6efd;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .gallery-title h2 {
+            color: #102a43;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .gallery-title p {
+            color: #6c757d;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+
+    /* ==========================================
+       GALLERY CARD
+       ========================================== */
+
+    .gallery-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+        transition: all .3s ease;
+        height: 100%;
+    }
+
+        .gallery-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, .14);
+        }
+
+
+    /* ==========================================
+       IMAGE
+       ========================================== */
+
+    .gallery-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        display: block;
+        transition: transform .4s ease;
+    }
+
+    .gallery-card:hover .gallery-image {
+        transform: scale(1.07);
+    }
+
+
+    /* ==========================================
+       IMAGE OVERLAY
+       ========================================== */
+
+    .gallery-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, .45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: .3s ease;
+    }
+
+    .gallery-image-wrapper:hover .gallery-overlay {
+        opacity: 1;
+    }
+
+    .gallery-view-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: white;
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+    }
+
+
+    /* ==========================================
+       GALLERY CONTENT
+       ========================================== */
+
+    .gallery-content {
+        padding: 20px 22px;
+    }
+
+        .gallery-content h3 {
+            color: #102a43;
+            font-size: 20px;
+            font-weight: 750;
+            margin-bottom: 8px;
+        }
+
+        .gallery-content p {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+
+    /* ==========================================
+       EMPTY
+       ========================================== */
+
+    .gallery-empty {
+        text-align: center;
+        padding: 70px 20px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, .07);
+    }
+
+    .gallery-empty-icon {
+        font-size: 60px;
+        margin-bottom: 15px;
+    }
+
+    .gallery-empty h3 {
+        color: #102a43;
+        font-weight: 700;
+    }
+
+    .gallery-empty p {
+        color: #6c757d;
+    }
+
+
+    /* ==========================================
+       LIGHTBOX
+       ========================================== */
+
+    .gallery-lightbox {
+        display: none;
+        position: fixed;
+        z-index: 99999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .92);
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+    }
+
+        .gallery-lightbox.active {
+            display: flex;
+        }
+
+    .lightbox-content {
+        position: relative;
+        max-width: 1000px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .lightbox-image {
+        max-width: 100%;
+        max-height: 75vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+    }
+
+    .lightbox-title {
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .lightbox-description {
+        color: #ddd;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+
+    /* ==========================================
+       CLOSE BUTTON
+       ========================================== */
+
+    .lightbox-close {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, .15);
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 100000;
+    }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, .3);
+        }
+
+
+    /* ==========================================
+       CTA
+       ========================================== */
+
+    .gallery-cta {
+        background: linear-gradient( 135deg, #0d6efd, #6610f2 );
+        color: white;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+        .gallery-cta h2 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .gallery-cta p {
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        .gallery-cta .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @@media (max-width: 768px) {
+
+        .gallery-hero {
+            min-height: 280px;
+        }
+
+            .gallery-hero h1 {
+                font-size: 36px;
+            }
+
+            .gallery-hero p {
+                font-size: 16px;
+            }
+
+        .gallery-section {
+            padding: 45px 15px;
+        }
+
+        .gallery-title h2 {
+            font-size: 28px;
+        }
+
+        .gallery-image {
+            height: 230px;
+        }
+
+        .gallery-lightbox {
+            padding: 15px;
+        }
+
+        .lightbox-image {
+            max-height: 70vh;
+        }
+
+        .lightbox-close {
+            right: 10px;
+            top: 10px;
+        }
+
+        .gallery-cta h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+
+<!-- ==================================================
+     HERO
+     ================================================== -->
+
+<section class="gallery-hero">
+
+    <div class="container">
+
+        <div class="gallery-hero-content">
+
+            <h1>
+                School Gallery
+            </h1>
+
+            <p>
+                Explore memorable moments, activities and
+                experiences from Adharsha High School.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     GALLERY
+     ================================================== -->
+
+<section class="gallery-section">
+
+    <div class="container">
+
+        <div class="gallery-title">
+
+            <div class="subtitle">
+                Memories & Moments
+            </div>
+
+            <h2>
+                Our School Gallery
+            </h2>
+
+            <p>
+                Take a look at some of the memorable moments
+                and activities from our school.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <div class="gallery-card">
+
+<div class="gallery-image-wrapper"
+     data-image="@Url.Content(item.Image)"
+     data-title="@item.Title"
+     data-description="@item.Description"
+     onclick="openGalleryImage(this)">
+
+    <img src="@Url.Content(item.Image)"
+         class="gallery-image"
+         alt="@item.Title" />
+
+    <div class="gallery-overlay">
+
+        <div class="gallery-view-icon">
+            🔍
+        </div>
+
+    </div>
+
+</div>
+     <div class="gallery-content">
+
+                                @if (!string.IsNullOrEmpty(item.Title))
+                                {
+                                    <h3>
+                                        @item.Title
+                                    </h3>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.Description))
+                                {
+                                    <p>
+                                        @item.Description
+                                    </p>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+
+                    <div class="gallery-empty">
+
+                        <div class="gallery-empty-icon">
+                            🖼️
+                        </div>
+
+                        <h3>
+                            Gallery Coming Soon
+                        </h3>
+
+                        <p>
+                            School photos and activities
+                            will be added shortly.
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     LIGHTBOX
+     ================================================== -->
+
+<div id="galleryLightbox"
+     class="gallery-lightbox"
+     onclick="closeGalleryImage(event)">
+
+    <button type="button"
+            class="lightbox-close"
+            onclick="closeGalleryImage()">
+
+        &times;
+
+    </button>
+
+
+    <div class="lightbox-content"
+         onclick="event.stopPropagation();">
+
+        <img id="lightboxImage"
+             class="lightbox-image"
+             src=""
+             alt="" />
+
+
+        <div id="lightboxTitle"
+             class="lightbox-title">
+        </div>
+
+
+        <div id="lightboxDescription"
+             class="lightbox-description">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     CTA
+     ================================================== -->
+
+<section class="gallery-cta">
+
+    <div class="container">
+
+        <h2>
+            Be Part of Our School Journey
+        </h2>
+
+        <p>
+            Want to know more about Adharsha High School?
+        </p>
+
+        <a href="@Url.Action("Contact", "School")"
+           class="btn btn-light btn-lg">
+
+            ☎ Contact Us
+
+        </a>
+
+    </div>
+
+</section>
+<!-- ==================================================
+            LIGHTBOX JAVASCRIPT
+                ================================================== -->
+<script>
+
+    function openGalleryImage(element) {
+
+        var image = element.getAttribute("data-image");
+        var title = element.getAttribute("data-title");
+        var description = element.getAttribute("data-description");
+
+        document.getElementById("lightboxImage").src = image;
+
+        document.getElementById("lightboxImage").alt = title || "Gallery Image";
+
+        document.getElementById("lightboxTitle").innerText = title || "";
+
+        document.getElementById("lightboxDescription").innerText =
+            description || "";
+
+        document.getElementById("galleryLightbox").classList.add("active");
+
+        document.body.style.overflow = "hidden";
+    }
+
+
+    function closeGalleryImage(event) {
+
+        if (event && event.target !== event.currentTarget) {
+            return;
+        }
+
+        document.getElementById("galleryLightbox")
+            .classList.remove("active");
+
+        document.getElementById("lightboxImage").src = "";
+
+        document.body.style.overflow = "";
+    }
+
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            document.getElementById("galleryLightbox")
+                .classList.remove("active");
+
+            document.getElementById("lightboxImage").src = "";
+
+            document.body.style.overflow = "";
+        }
+
+    });
+
+</script>

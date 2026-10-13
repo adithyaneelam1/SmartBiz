@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Admin Login";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+    }
+
+    .login-page {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 15px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 430px;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.20);
+    }
+
+    .login-logo {
+        width: 75px;
+        height: 75px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+    }
+
+    .login-title {
+        text-align: center;
+        color: #1f2937;
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+        text-align: center;
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        color: #374151;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 48px;
+        border-radius: 10px;
+        border: 1px solid #d1d5db;
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+        }
+
+    .login-button {
+        width: 100%;
+        height: 48px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+            color: white;
+        }
+
+    .login-error {
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .login-footer {
+        text-align: center;
+        margin-top: 25px;
+        color: #9ca3af;
+        font-size: 13px;
+    }
+
+    @@media (max-width: 576px) {
+
+        .login-page {
+            padding: 20px 15px;
+        }
+
+        .login-card {
+            padding: 30px 22px;
+        }
+
+        .login-title {
+            font-size: 24px;
+        }
+    }
+</style>
+
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <!-- LOGO / ICON -->
+
+        <div class="login-logo">
+            🏫
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h1 class="login-title">
+            Admin Login
+        </h1>
+
+        <p class="login-subtitle">
+            Adharsha High School Administration
+        </p>
+
+
+        <!-- ERROR MESSAGE -->
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger login-error">
+                @ViewBag.Message
+            </div>
+        }
+
+
+        <!-- LOGIN FORM -->
+
+        @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+        {
+
+            <!-- USERNAME -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Username
+                </label>
+
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       placeholder="Enter username"
+                       autocomplete="username"
+                       required />
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Password
+                </label>
+
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Enter password"
+                       autocomplete="current-password"
+                       required />
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button type="submit"
+                    class="login-button">
+
+                🔐 Login
+
+            </button>
+
+        }
+
+        
+        <div class="login-footer">
+            © @DateTime.Now.Year Adharsha High School
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+

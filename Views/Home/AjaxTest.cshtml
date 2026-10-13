@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Ajax test";
+}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<p>
+    <input id="name" type="text">
+</p>
+<p>
+    <input class="lastname" type="text">
+</p>
+<p class="message">Hello eyyreryyeryeryreyery </p>
+
+<button id="btn">Click</button>
+
+<script>
+    $(document).ready(function () {
+
+
+        $(".message").css("color", "red");
+
+        $("#btn").click(function () {
+            //alert("Button clicked");
+
+            //var nametext = $("#name").val();
+
+            //alert(nametext);
+            //var text = $(".lastname").val();
+
+            //alert(text);
+
+            //$("#name").val('naveen');
+
+            //alert($("#name").val());
+
+    //        var username = $("#name").val();
+
+            $("#btn").click(function () {
+
+                var username = $("#name").val();
+
+                if ($("#name").val() == "") {
+                    alert("name is required");
+                    return false;
+                }
+
+                alert(username);
+            });
+
+            //if (username == "") {
+            //    alert("name is required");
+            //    return false;
+            //}
+        });
+    });
+</script>

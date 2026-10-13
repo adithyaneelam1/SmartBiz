@@ -1,0 +1,554 @@
+﻿@model SunnyPractice.Models.ProductLoginViewModel
+@{
+    ViewBag.Title = "products";
+}
+
+<h2 style="color:blue">PRODUCTS.....</h2>
+@*@model SunnyPractice.Models.ProductLoginViewModel*@
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<style>
+
+    body {
+        background-color: #f5f6f8;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .product-page {
+        width: 600px;
+        margin: 40px auto;
+    }
+
+    .product-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .product-title {
+        margin: 0 0 5px 0;
+        color: #2563eb;
+        font-size: 25px;
+    }
+
+    .product-time {
+        color: #777;
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 6px;
+        color: #374151;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        height: 40px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        background-color: white;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+    .pid-box {
+        background-color: #f3f4f6;
+        color: #666;
+    }
+
+    .button-area {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-save {
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .btn-save:hover {
+            background-color: #1d4ed8;
+        }
+
+    .btn-back {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 8px;
+    }
+
+        .btn-back:hover {
+            background-color: #c82333;
+            color: white;
+            text-decoration: none;
+        }
+
+    .message {
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        border-radius: 5px;
+    }
+
+    @@media (max-width: 650px) {
+
+        .product-page {
+            width: 95%;
+            margin: 20px auto;
+        }
+
+        .product-card {
+            padding: 20px;
+        }
+
+        .button-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-save,
+        .btn-back {
+            width: 100%;
+            margin-left: 0;
+            text-align: center;
+        }
+    }
+</style>
+
+
+<div class="product-page">
+
+    <div class="product-card">
+
+        <h2 class="product-title">
+
+            @(Model.Pid > 0 ? "EDIT PRODUCT" : "ADD PRODUCT")
+        </h2>
+
+        <div class="product-time">
+            Time: @DateTime.Now
+        </div>
+
+
+        @if (ViewBag.msg != null)
+        {
+            <div class="message">
+                @ViewBag.msg
+            </div>
+        }
+
+
+        <form id="productForm">
+
+            @Html.HiddenFor(m => m.Pid)
+
+
+            <!-- Product ID -->
+            <div class="form-group">
+
+                <label class="form-label">
+                    Product ID
+                </label>
+
+                <input type="text"
+                       class="form-control pid-box"
+                       value="@Model.Pid"
+                       readonly />
+
+            </div>
+
+
+            <!-- Username -->
+            <div class="form-group">
+
+                <label class="form-label">
+                    Username
+                </label>
+
+                @Html.TextBoxFor(
+                    m => m.username,
+                    new
+                    {
+                        @class = "form-control",
+                        placeholder = "Enter username"
+                    })
+
+                @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+                <span id="usernameMessage"></span>
+            </div>
+
+
+            <!-- Password -->
+            <div class="form-group">
+
+                <label class="form-label">
+                    Password
+                </label>
+
+                @Html.TextBoxFor(
+                    m => m.password,
+                    new
+                    {
+                        @class = "form-control",
+                        placeholder = "Enter password"
+
+                    })
+                @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <!-- Product Name -->
+            <div class="form-group">
+
+                <label class="form-label">
+                    Product Name
+                </label>
+
+                @Html.TextBoxFor(
+                    m => m.Pname,
+                    new
+                    {
+                        @class = "form-control",
+                        placeholder = "Enter product name"
+                    })
+                @Html.ValidationMessageFor(m => m.Pname, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Category
+                </label>
+
+
+                @Html.DropDownListFor(
+                    x => x.category,
+                    new SelectList(new[]
+                    {
+                        "electronics",
+                        "accessries",
+                        "office",
+                        "other",
+
+                    }),
+                    "-- Select Category --",
+                    new { @class = "form-select" }
+                )
+
+                @Html.ValidationMessageFor(x => x.category, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Gender:</label>
+
+                @Html.RadioButtonFor(x => x.Gender, "Male", new { @class = "form-check-input" })
+                @Html.Label("Male", "Male", new { @class = "form-check-label" })
+
+                @Html.RadioButtonFor(x => x.Gender, "Female", new { @class = "form-check-input" })
+                @Html.Label("Female", "Female", new { @class = "form-check-label" })<br />
+
+                @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label"> ADDRESS: </label>
+
+
+
+                @Html.TextAreaFor(
+                    x => x.Address,
+                    new
+                    {
+                        rows = 5,
+                        cols = 40,
+                        placeholder = "Enter your complete address",
+                             @class = "form-control-sm"
+                    }
+                ) <br />
+
+                @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Product Features</label><br />
+
+                @Html.CheckBoxFor(m => m.IsNew, new { @class = "form-check-input" })
+                <label class="form-check-label" for="IsNew">New</label>
+
+                @Html.CheckBoxFor(m => m.IsFeatured, new { @class = "form-check-input" })
+                <label class="form-check-label" for="IsFeatured">Featured</label>
+
+                @Html.CheckBoxFor(m => m.InStock, new { @class = "form-check-input" })
+                <label class="form-check-label" for="InStock">In Stock</label>
+
+                @Html.CheckBoxFor(m => m.AvailableForDelivery, new { @class = "form-check-input" })
+                <label class="form-check-label" for="AvailableForDelivery">Delivery</label>
+
+
+
+                @Html.ValidationMessage(
+                    "Features",
+                    "",
+                    new { @class = "text-danger" })
+
+
+
+
+            </div>
+
+
+            <!-- Price -->
+            <div class="form-group">
+
+                <label class="form-label">
+                    Price
+                </label>
+
+                @Html.TextBoxFor(
+                    m => m.Price,
+                    new
+                    {
+                        @class = "form-control",
+                        type = "number",
+                        min = "0",
+                        step = "0.01",
+                        placeholder = "Enter price"
+                    })
+
+                @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Product File
+                </label>
+
+                @Html.TextBoxFor(
+                    m => m.Imagefile,
+                    new
+                    {
+                        type = "file",
+                        @class = "form-control"
+                    })
+
+
+                @Html.ValidationMessageFor(m => m.Imagefile, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div id="successMessage"
+                 style="display:none; color:green; font-weight:bold;">
+            </div>
+
+            <!-- Buttons -->
+
+
+
+            <div class="button-area">
+
+                <button type="submit" id="btnsubmit"
+                        class="btn-save">
+
+                    @(Model.Pid > 0 ? "Update Product" : "Save Product")
+                </button>
+
+
+                <a href="/EMP2/ProductList"
+                   class="btn-back">
+
+                    Back to List
+
+                </a>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $("#productForm").submit(function (e) {
+
+            e.preventDefault();
+
+            if (!$(this).valid()) {
+    return false;
+}
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '/EMP2/products',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+
+                success: function (response) {
+
+                    alert(response.message);
+
+                    if (response.success) {
+
+                        $("#successMessage")
+                            .css("color", "green")
+                            .text(response.message)
+                            .show();
+
+                        // Clear form only after INSERT
+                        var pid = $("#Pid").val();
+
+                        if (pid == "0" || pid == "") {
+                            $("#productForm")[0].reset();
+                        }
+                    }
+                    else {
+
+                        $("#successMessage")
+                            .css("color", "red")
+                            .text(response.message)
+                            .show();
+                    }
+                },
+
+                error: function (xhr) {
+
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+
+                    alert("Save request failed.");
+                }
+            });
+
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        $("#username").change(function () {
+
+            var username = $(this).val().trim();
+
+            
+
+            if (username === "") {
+                $("#usernameMessage")
+                    .css("color", "red")
+                    .text("Please enter username.");
+
+                return;
+            }
+
+            $.ajax({
+                url: '/EMP2/CheckUsername',
+                type: 'POST',
+                data: {
+                    username: username
+                },
+
+                success: function (response) {
+
+                    if (response.success) {
+
+                       
+
+                        $("#usernameMessage")
+                            .css("color", "green")
+                            .text(response.message);
+
+                        $('#btnsubmit')
+                            .prop('disabled', false)
+                            .css({
+                                'background-color': '',
+                                'border-color': '',
+                                'color': ''
+                            });
+                    }
+                    else {
+                       /// $(".btn-save").prop('disabled', true);
+
+
+                         $("#usernameMessage")
+                            .css("color", "red")
+                        .text(response.message);
+
+                        $('#btnsubmit')
+                            .prop('disabled', true)
+                            .css({
+                                'background-color': 'gray',
+                                'border-color': 'gray',
+                                'color': 'white'
+                            });
+
+
+                    }
+                },
+
+                error: function (xhr) {
+
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+
+                    $("#usernameMessage")
+                        .css("color", "red")
+                        .text("Username check failed.");
+                }
+            });
+
+        });
+
+    });
+</script>

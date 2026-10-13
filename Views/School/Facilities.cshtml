@@ -1,0 +1,636 @@
+﻿@model IEnumerable<AdharshaHighSchool.Models.Facility>
+
+@{
+    Layout = "~/Views/Shared/_SchoolLayout.cshtml";
+    ViewBag.Title = "Facilities";
+}
+
+<style>
+
+    /* ==========================================
+       FACILITIES HERO
+       ========================================== */
+
+    .facility-hero {
+        min-height: 330px;
+        background: linear-gradient( 135deg, rgba(13, 110, 253, .90), rgba(111, 66, 193, .82) ), url('/Folder1/school-building.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .facility-hero-content {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .facility-hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 15px;
+    }
+
+    .facility-hero p {
+        font-size: 19px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+
+    /* ==========================================
+       COMMON
+       ========================================== */
+
+    .facility-section {
+        padding: 65px 0;
+    }
+
+    .facility-title {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+        .facility-title .subtitle {
+            color: #0d6efd;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .facility-title h2 {
+            color: #102a43;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .facility-title p {
+            color: #6c757d;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+
+    /* ==========================================
+       FACILITY CARD
+       ========================================== */
+
+    .facility-card {
+        height: 100%;
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+        transition: all .3s ease;
+    }
+
+        .facility-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .14);
+        }
+
+    .facility-image-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .facility-image {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        display: block;
+        transition: transform .4s ease;
+    }
+
+    .facility-card:hover .facility-image {
+        transform: scale(1.06);
+    }
+
+    .facility-content {
+        padding: 25px;
+    }
+
+        .facility-content h3 {
+            color: #102a43;
+            font-size: 22px;
+            font-weight: 750;
+            margin-bottom: 10px;
+        }
+
+        .facility-content p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+
+    /* ==========================================
+       NUMBER BADGE
+       ========================================== */
+
+    .facility-number {
+        position: absolute;
+        left: 18px;
+        bottom: -18px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0d6efd;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        border: 4px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    }
+
+
+    /* ==========================================
+       EMPTY DATA
+       ========================================== */
+
+    .facility-empty {
+        text-align: center;
+        padding: 65px 20px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, .07);
+    }
+
+    .facility-empty-icon {
+        font-size: 55px;
+        margin-bottom: 15px;
+    }
+
+    .facility-empty h3 {
+        color: #102a43;
+        font-weight: 700;
+    }
+
+    .facility-empty p {
+        color: #6c757d;
+    }
+
+
+    /* ==========================================
+       LEARNING ENVIRONMENT
+       ========================================== */
+
+    .environment-section {
+        background: linear-gradient( 135deg, #f5f9ff, #faf5ff );
+    }
+
+    .environment-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+    }
+
+    .environment-content {
+        padding: 15px 10px;
+    }
+
+        .environment-content h2 {
+            color: #102a43;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .environment-content > p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+    .environment-point {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 18px;
+    }
+
+    .environment-icon {
+        min-width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #cfe2ff;
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 14px;
+        font-size: 19px;
+    }
+
+    .environment-point h5 {
+        color: #102a43;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .environment-point p {
+        color: #6c757d;
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+
+    /* ==========================================
+       CTA
+       ========================================== */
+
+    .facility-cta {
+        background: linear-gradient( 135deg, #0d6efd, #6610f2 );
+        color: white;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+        .facility-cta h2 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .facility-cta p {
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        .facility-cta .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @@media (max-width: 768px) {
+
+        .facility-hero {
+            min-height: 280px;
+        }
+
+            .facility-hero h1 {
+                font-size: 36px;
+            }
+
+            .facility-hero p {
+                font-size: 16px;
+            }
+
+        .facility-section {
+            padding: 45px 15px;
+        }
+
+        .facility-title h2 {
+            font-size: 28px;
+        }
+
+        .facility-image {
+            height: 210px;
+        }
+
+        .environment-image {
+            height: 280px;
+            margin-bottom: 25px;
+        }
+
+        .environment-content h2 {
+            font-size: 27px;
+        }
+
+        .facility-cta h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+
+<!-- ==================================================
+     HERO
+     ================================================== -->
+
+<section class="facility-hero">
+
+    <div class="container">
+
+        <div class="facility-hero-content">
+
+            <h1>
+                Facilities
+            </h1>
+
+            <p>
+                Creating a comfortable and supportive environment
+                for learning, growth and student development.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     FACILITIES
+     ================================================== -->
+
+<section class="facility-section">
+
+    <div class="container">
+
+        <div class="facility-title">
+
+            <div class="subtitle">
+                Our Campus
+            </div>
+
+            <h2>
+                School Facilities
+            </h2>
+
+            <p>
+                Explore the facilities available at
+                Adharsha High School to support students
+                in their educational journey.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+            @if (Model != null && Model.Any())
+            {
+                int number = 1;
+
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <div class="facility-card">
+
+                            <!-- Image -->
+
+                            <div class="facility-image-wrapper">
+
+                                @if (!string.IsNullOrEmpty(item.Image))
+                                {
+                                    <img src="@item.Image"
+                                         class="facility-image"
+                                         alt="@item.FacilityName" />
+                                }
+                                else
+                                {
+                                    <img src="~/Folder1/school-building.jpg"
+                                         class="facility-image"
+                                         alt="@item.FacilityName" />
+                                }
+
+                                <div class="facility-number">
+                                    @number
+                                </div>
+
+                            </div>
+
+
+                            <!-- Content -->
+
+                            <div class="facility-content">
+
+                                <h3>
+                                    @item.FacilityName
+                                </h3>
+
+                                <p>
+                                    @item.Description
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    number++;
+                }
+            }
+            else
+            {
+                <div class="col-12">
+
+                    <div class="facility-empty">
+
+                        <div class="facility-empty-icon">
+                            🏫
+                        </div>
+
+                        <h3>
+                            Facilities Information Coming Soon
+                        </h3>
+
+                        <p>
+                            Our school facilities will be
+                            updated shortly.
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     LEARNING ENVIRONMENT
+     ================================================== -->
+
+<section class="facility-section environment-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- Image -->
+
+            <div class="col-lg-6 mb-4 mb-lg-0">
+
+                <img src="~/Folder1/science-lab.jpg"
+                     class="environment-image"
+                     alt="School Learning Environment" />
+
+            </div>
+
+
+            <!-- Content -->
+
+            <div class="col-lg-6">
+
+                <div class="environment-content">
+
+                    <div class="facility-title text-left mb-3">
+
+                        <div class="subtitle">
+                            Student Experience
+                        </div>
+
+                        <h2>
+                            A Better Learning Environment
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        We believe that a good learning environment
+                        helps students feel comfortable, confident
+                        and motivated to learn.
+                    </p>
+
+
+                    <div class="environment-point">
+
+                        <div class="environment-icon">
+                            📚
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Learning Support
+                            </h5>
+
+                            <p>
+                                Supporting students throughout
+                                their learning journey.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="environment-point">
+
+                        <div class="environment-icon">
+                            💻
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Modern Learning
+                            </h5>
+
+                            <p>
+                                Encouraging students to explore
+                                technology and new ideas.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="environment-point">
+
+                        <div class="environment-icon">
+                            ⚽
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Activities & Sports
+                            </h5>
+
+                            <p>
+                                Encouraging physical activities,
+                                teamwork and participation.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="environment-point">
+
+                        <div class="environment-icon">
+                            🌱
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Overall Development
+                            </h5>
+
+                            <p>
+                                Focusing on knowledge, confidence,
+                                values and personal development.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     CTA
+     ================================================== -->
+
+<section class="facility-cta">
+
+    <div class="container">
+
+        <h2>
+            Discover More About Our School
+        </h2>
+
+        <p>
+            Visit our gallery to explore school activities
+            and memorable moments.
+        </p>
+
+        <a href="@Url.Action("Gallery", "School")"
+           class="btn btn-light btn-lg">
+
+            🖼️ View Gallery
+
+        </a>
+
+    </div>
+
+</section>

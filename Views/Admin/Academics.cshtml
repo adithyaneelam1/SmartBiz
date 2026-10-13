@@ -1,0 +1,504 @@
+﻿@model IEnumerable<AdharshaHighSchool.Models.Academic>
+
+@{
+    ViewBag.Title = "Academics";
+}
+
+<style>
+
+    /* =========================================
+       PAGE
+       ========================================= */
+
+    .academics-page {
+        padding-bottom: 30px;
+    }
+
+
+    /* =========================================
+       HEADER
+       ========================================= */
+
+    .academics-header {
+        background: linear-gradient(135deg, #172554, #2563eb);
+        color: white;
+        padding: 28px 30px;
+        margin-bottom: 25px;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(37,99,235,0.15);
+    }
+
+        .academics-header h2 {
+            margin: 0 0 5px;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .academics-header p {
+            margin: 0;
+            color: #dbeafe;
+            font-size: 14px;
+        }
+
+    .header-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .dashboard-btn,
+    .add-btn {
+        padding: 9px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .add-btn {
+        background: white;
+        color: #1d4ed8;
+        border: none;
+    }
+
+        .add-btn:hover {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+
+    /* =========================================
+       SUMMARY
+       ========================================= */
+
+    .academic-summary {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 18px 22px;
+        margin-bottom: 22px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    }
+
+    .summary-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 14px;
+        background: #dcfce7;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+    .summary-text span {
+        display: block;
+        color: #6b7280;
+        font-size: 12px;
+    }
+
+    .summary-text strong {
+        color: #111827;
+        font-size: 22px;
+    }
+
+
+    /* =========================================
+       ACADEMIC CARD
+       ========================================= */
+
+    .academic-card {
+        height: 100%;
+        padding: 24px;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        transition: all 0.25s ease;
+    }
+
+        .academic-card:hover {
+            transform: translateY(-4px);
+            border-color: #dbeafe;
+            box-shadow: 0 12px 25px rgba(37,99,235,0.09);
+        }
+
+
+    /* =========================================
+       CARD TOP
+       ========================================= */
+
+    .academic-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+    }
+
+    .academic-number {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dbeafe;
+        color: #2563eb;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .order-label {
+        color: #9ca3af;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       CARD CONTENT
+       ========================================= */
+
+    .academic-card h4 {
+        margin-bottom: 9px;
+        color: #111827;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    .academic-description {
+        min-height: 65px;
+        margin-bottom: 15px;
+        color: #6b7280;
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+
+    /* =========================================
+       STATUS
+       ========================================= */
+
+    .active-badge,
+    .inactive-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 11px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .active-badge {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .inactive-badge {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+
+    /* =========================================
+       CARD ACTIONS
+       ========================================= */
+
+    .academic-actions {
+        display: flex;
+        gap: 7px;
+        margin-top: 18px;
+        padding-top: 15px;
+        border-top: 1px solid #f1f5f9;
+    }
+
+        .academic-actions .btn {
+            padding: 6px 12px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
+    /* =========================================
+       EMPTY STATE
+       ========================================= */
+
+    .empty-box {
+        padding: 65px 20px;
+        text-align: center;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        background: #f3f4f6;
+        border-radius: 50%;
+        font-size: 38px;
+    }
+
+    .empty-box h4 {
+        margin-top: 18px;
+        color: #374151;
+        font-weight: 600;
+    }
+
+    .empty-box p {
+        color: #9ca3af;
+        font-size: 13px;
+    }
+
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
+    @@media (max-width: 768px) {
+
+        .academics-header {
+            padding: 22px;
+        }
+
+            .academics-header .d-flex {
+                display: block !important;
+            }
+
+        .header-actions {
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .academic-card {
+            padding: 20px;
+        }
+    }
+</style>
+
+
+<div class="academics-page">
+
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
+    <div class="academics-header">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h2>
+                    📚 Academics
+                </h2>
+
+                <p>
+                    Manage academic programs and educational information.
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <a href="@Url.Action("Dashboard", "Admin")"
+                   class="btn btn-light dashboard-btn">
+
+                    ← Dashboard
+
+                </a>
+
+
+                <a href="@Url.Action("AddAcademic", "Admin")"
+                   class="btn add-btn">
+
+                    + Add Academic
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SUMMARY
+         ========================================= -->
+
+    <div class="academic-summary">
+
+        <div class="summary-icon">
+            📚
+        </div>
+
+        <div class="summary-text">
+
+            <span>
+                Total Academic Records
+            </span>
+
+            <strong>
+                @(Model == null ? 0 : Model.Count())
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         ACADEMIC ITEMS
+         ========================================= -->
+
+    @if (Model != null && Model.Any())
+    {
+
+        <div class="row g-4">
+
+            @foreach (var item in Model)
+            {
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="academic-card">
+
+
+                        <!-- CARD TOP -->
+
+                        <div class="academic-card-top">
+
+                            <div class="academic-number">
+
+                                @item.DisplayOrder
+
+                            </div>
+
+                            <span class="order-label">
+                                Display Order
+                            </span>
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <h4>
+                            @item.Title
+                        </h4>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="academic-description">
+
+                            @if (!string.IsNullOrEmpty(item.Description))
+                            {
+                                @item.Description
+                            }
+                            else
+                            {
+                                <span>
+                                    No description available.
+                                </span>
+                            }
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        @if (item.IsActive)
+                        {
+
+                            <span class="active-badge">
+                                ● Active
+                            </span>
+
+                        }
+                        else
+                        {
+
+                            <span class="inactive-badge">
+                                ● Inactive
+                            </span>
+
+                        }
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="academic-actions">
+
+                            <a href="@Url.Action("EditAcademic", "Admin", new { id = item.AcademicId })"
+                               class="btn btn-outline-primary">
+
+                                ✏️ Edit
+
+                            </a>
+
+
+                            <a href="@Url.Action("DeleteAcademic", "Admin", new { id = item.AcademicId })"
+                               class="btn btn-outline-danger"
+                               onclick="return confirm('Are you sure you want to delete this academic information?');">
+
+                                🗑️ Delete
+
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+    else
+    {
+
+        <!-- =========================================
+             EMPTY STATE
+             ========================================= -->
+
+        <div class="empty-box">
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+            <h4>
+                No Academic Information
+            </h4>
+
+            <p>
+                No academic information has been added yet.
+            </p>
+
+            <a href="@Url.Action("AddAcademic", "Admin")"
+               class="btn btn-primary mt-3">
+
+                + Add Academic
+
+            </a>
+
+        </div>
+
+    }
+
+</div>

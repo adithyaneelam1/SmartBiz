@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "products";
+}
+
+<h2 style="color:blue">ADD PRODUCTS</h2>
+
+<p>TIME:@DateTime.Now</p>
+
+<form action="/EMP/products" products method="post" enctype="multipart/form-data">
+
+    <label>PID : @ViewBag.Pid</label><br><br>
+
+    <label>username : </label><br><br>
+    <input type="text" id="username" name="username" value="@ViewBag.username" class="form-control" />
+
+    <label>password: </label><br><br>
+    <input type="text" id="password" name="password" value="@ViewBag.password" class="form-control">
+
+    <input type="hidden" id="Pid" name="Pid" value="@ViewBag.Pid" /><br><br>
+
+    <label>Pname :</label>
+
+    <input type="text" id="Panme" name="Pname" value="@ViewBag.Pname" class="form-control" /><br><br>
+
+    <label>category :</label><br>
+
+    <select class="form-control" name="category">
+
+        <option value="">----select category------</option>
+        <option @(ViewBag.category?.ToString() == "electronics" ? "selected=\"selected\"" : "")>electronics</option>
+        <option @(ViewBag.category?.ToString() == "accessries" ? "selected=\"selected\"" : "")>accessries</option>
+        <option @(ViewBag.category?.ToString() == "office" ? "selected=\"selected\"" : "")>office</option>
+    </select><br><br>
+
+
+    <label>Price :</label><br>
+
+    <select class="form-control" name="Price">
+        <option value="">---select Price----</option>
+        <option @(ViewBag.price?.ToString() == "50000" ? "selected=\"selected\"" : "")>50000</option>
+        <option @(ViewBag.price?.ToString() == "800" ? "selected=\"selected\"" : "")>800</option>
+        <option @(ViewBag.price?.ToString() == "1300" ? "selected=\"selected\"" : "")>1300</option>
+        <option @(ViewBag.price?.ToString() == "15000" ? "selected=\"selected\"" : "")>15000</option>
+        <opotion @(ViewBag.price?.ToString() == "9000" ? "selected=\"selected\"" : "")>9000</opotion>
+        <option @(ViewBag.price?.ToString() == "500" ? "selected=\"selected\"" : "")>500
+        <option>
+        <option @(ViewBag.price?.ToString() == "17000" ? "selected=\"selected\"" : "")>17000</option>
+        <option @(ViewBag.price?.ToString() == "1600" ? "selected=\"selected\"" : "")>1600 </option>
+    </select><br><br>
+
+
+    <label for="upload file"> upload file : </label><br />
+
+    <input type="file" name="Imagefile" id="Imagefile" class="form-control" /><br />
+
+    <input type="hidden" name="imagepath"  value="@ViewBag.imagepath" />
+
+    <input type="submit" value="submit" class="btn btn-primary"><br /><br />
+
+
+    <a href="/EMP/productlist" class="btn btn-danger">Back to list</a><br />
+
+
+</form>
+
+
+<p>@ViewBag.msg</p>
+
+<br /> <p style="color:red">
+    @ViewBag.msg
+</p>
+
+
+
+
+
+
+

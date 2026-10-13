@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h3>LIST OF PATIENENT</h3>
+
+<p> TIME:@DateTime.Now </p>
+
+<form action="/Home/contact" method="post">
+    <br />
+
+    <label>ID:@ViewBag.Id</label>
+
+
+
+    <input type="hidden" name="id" id="id" value="@ViewBag.Id"><br /><br />
+
+    <label>name:</label>
+    <input type="text" id="name" name="name" placeholder="enter your name" value="@ViewBag.name" /><br /><br />
+
+    <label> AGE:</label>
+    <input type="number" id="age" name="age" min="1" max="100" value="@ViewBag.age" /><br /><br />
+    <label> Gender:</label><br>
+    <input type="radio" name="Gender" value="male" @(ViewBag.gender?.ToString() == "male" ? "checked" : "") />male<br />
+    <input type="radio" name="Gender" value="female" @(ViewBag.gender?.ToString() == "female" ? "checked" : "") />female<br />
+    <br />
+    <label>Disease:</label><br />
+    <input type="text" id="disease" name="disease" value="@ViewBag.disease" /><br /><br />
+
+
+
+
+    @*<h2> Select option:</h2>
+
+        <input type="radio"  name="delete" value="delete" /><br />
+
+        <label> delete:</label>
+
+        <input type="radio" name="insert" value="insert" />
+
+        <label>insert:</label> <br />*@
+
+    @*<button type="submit">Save</button>*@
+
+    <input type="submit" value="SUBMIT" class="btn btn-primary" /><br />
+
+
+</form>
+<br />
+<a href="/home/Registration" class="btn btn-danger">back to list</a>
+
+
+<br /> <p style="color:red">
+    @ViewBag.msg
+</p>
+
+@*<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>age</th>
+        <th>disease</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+    </tr>
+    
+    @foreach (var item in ViewBag.data)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.age</td>
+            <td>@item.disease</td>
+            <td> 
+                <form action="/Home/get" method="post">
+                    <input type="hidden" name="id" id="id" value="@item.Id">
+                    <input type="submit" class="btn btn-primary" value="GET" />
+                </form>
+            
+            </td>
+            <td>
+                <form action="/Home/delete" method="post">
+                    <input type="hidden" name="id" id="id" value="@item.Id">
+                    <input type="submit" class="btn btn-danger" value="DELETE" />
+                </form>
+                
+            </td>
+        </tr>
+    }
+</table>*@

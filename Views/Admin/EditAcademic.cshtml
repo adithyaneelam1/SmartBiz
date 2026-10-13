@@ -1,0 +1,252 @@
+﻿@model AdharshaHighSchool.Models.Academic
+
+@{
+    ViewBag.Title = "Edit Academic";
+}
+
+<style>
+
+    .edit-academic-page {
+        background: #f5f7fb;
+        min-height: 75vh;
+        padding: 30px 0;
+    }
+
+    .edit-card {
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+        overflow: hidden;
+    }
+
+    .edit-header {
+        background: linear-gradient(135deg, #7c3aed, #a855f7);
+        color: white;
+        padding: 25px 30px;
+    }
+
+        .edit-header h2 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .edit-header p {
+            margin: 7px 0 0;
+            opacity: 0.9;
+        }
+
+    .edit-body {
+        padding: 30px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 9px;
+        border: 1px solid #d1d5db;
+        padding: 11px 13px;
+    }
+
+        .form-control:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+        }
+
+    .description-box {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .active-box {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 9px;
+        padding: 12px 15px;
+    }
+
+    .btn-update {
+        background: #7c3aed;
+        border: none;
+        color: white;
+        padding: 11px 24px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+        .btn-update:hover {
+            background: #6d28d9;
+            color: white;
+        }
+
+    .btn-cancel {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        color: #374151;
+        padding: 11px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-left: 8px;
+    }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+            color: #111827;
+            text-decoration: none;
+        }
+</style>
+
+
+<div class="edit-academic-page">
+
+    <div class="container">
+
+        <div class="edit-card">
+
+            <!-- HEADER -->
+
+            <div class="edit-header">
+
+                <h2>✏️ Edit Academic Information</h2>
+
+                <p>
+                    Update academic program details.
+                </p>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <div class="edit-body">
+
+                @using (Html.BeginForm(
+                    "EditAcademic",
+                    "Admin",
+                    FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(x => x.AcademicId)
+
+
+                    <!-- TITLE -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Academic Title
+                        </label>
+
+                        @Html.TextBoxFor(
+                            x => x.Title,
+                            new
+                            {
+                                @class = "form-control",
+                                placeholder = "Enter academic title"
+                            })
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        @Html.TextAreaFor(
+                            x => x.Description,
+                            new
+                            {
+                                @class = "form-control description-box",
+                                placeholder = "Enter academic description"
+                            })
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <!-- DISPLAY ORDER -->
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Display Order
+                            </label>
+
+                            @Html.TextBoxFor(
+                                x => x.DisplayOrder,
+                                new
+                                {
+                                    @class = "form-control",
+                                    type = "number",
+                                    min = "0"
+                                })
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Status
+                            </label>
+
+                            <div class="active-box">
+
+                                <label>
+
+                                    @Html.CheckBoxFor(
+                                        x => x.IsActive)
+
+                                    &nbsp; Active
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="mt-3">
+
+                        <button type="submit"
+                                class="btn-update">
+
+                            💾 Update Academic
+
+                        </button>
+
+
+                        <a href="@Url.Action("Academics", "Admin")"
+                           class="btn-cancel">
+
+                            ← Back to Academics
+
+                        </a>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

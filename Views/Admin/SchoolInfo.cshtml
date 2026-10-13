@@ -1,0 +1,395 @@
+﻿@model AdharshaHighSchool.Models.SchoolInfo
+
+@{
+    ViewBag.Title = "School Information";
+}
+
+<style>
+
+    /*.school-info-page {
+        background: #f5f7fb;
+        min-height: 75vh;
+        padding: 25px 0;
+    }*/
+    .info-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+        .info-header h2 {
+            margin: 0;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .info-header p {
+            margin: 5px 0 0;
+            color: #6b7280;
+        }
+
+    .info-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+
+    .info-card-header {
+        padding: 20px 25px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+        .info-card-header h4 {
+            margin: 0;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .info-card-header p {
+            margin: 5px 0 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+    .info-card-body {
+        padding: 25px;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 7px;
+    }
+
+    .form-control {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 10px 12px;
+    }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+        }
+
+    .textarea-large {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .btn-save {
+        background: #2563eb;
+        border: none;
+        color: white;
+        padding: 10px 22px;
+        border-radius: 8px;
+    }
+
+        .btn-save:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+    .btn-back {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        color: #374151;
+        padding: 10px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+        .btn-back:hover {
+            background: #e5e7eb;
+            color: #111827;
+            text-decoration: none;
+        }
+
+    .success-message {
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    @@media (max-width: 768px) {
+
+        .info-header {
+            display: block;
+        }
+
+            .info-header .btn-back {
+                display: inline-block;
+                margin-top: 15px;
+            }
+
+        .info-card-body {
+            padding: 18px;
+        }
+    }
+</style>
+
+
+<div class="school-info-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="info-header">
+
+            <div>
+
+                <h2>School Information</h2>
+
+                <p>
+                    Manage your school's basic information and details.
+                </p>
+
+            </div>
+
+            <a href="@Url.Action("Dashboard", "Admin")"
+               class="btn-back">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- INFORMATION CARD -->
+
+        <div class="info-card">
+
+            <div class="info-card-header">
+
+                <h4>Basic School Information</h4>
+
+                <p>
+                    Update the information displayed on the school website.
+                </p>
+
+            </div>
+
+
+            <div class="info-card-body">
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-success success-message">
+                        @ViewBag.Message
+                    </div>
+                }
+
+
+                @using (Html.BeginForm("SchoolInfo", "Admin", FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <!-- SCHOOL NAME -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            School Name
+                        </label>
+
+                        @Html.TextBoxFor(
+                            x => x.SchoolName,
+                            new
+                            {
+                                @class = "form-control",
+                                placeholder = "Enter school name"
+                            })
+
+                    </div>
+
+
+                    <!-- ADDRESS + PRINCIPAL -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Address
+                            </label>
+
+                            @Html.TextBoxFor(
+                                x => x.Address,
+                                new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Enter school address"
+                                })
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Principal Name
+                            </label>
+
+                            @Html.TextBoxFor(
+                                x => x.PrincipalName,
+                                new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Enter principal name"
+                                })
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE + EMAIL -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Phone
+                            </label>
+
+                            @Html.TextBoxFor(
+                                x => x.Phone,
+                                new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Enter phone number"
+                                })
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            @Html.TextBoxFor(
+                                x => x.Email,
+                                new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Enter email address"
+                                })
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ABOUT US -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            About School
+                        </label>
+
+                        @Html.TextAreaFor(
+                            x => x.AboutUs,
+                            new
+                            {
+                                @class = "form-control textarea-large",
+                                placeholder = "Enter information about the school"
+                            })
+
+                    </div>
+
+
+                    <!-- VISION -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Vision
+                        </label>
+
+                        @Html.TextAreaFor(
+                            x => x.Vision,
+                            new
+                            {
+                                @class = "form-control textarea-large",
+                                placeholder = "Enter school vision"
+                            })
+
+                    </div>
+
+
+                    <!-- MISSION -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Mission
+                        </label>
+
+                        @Html.TextAreaFor(
+                            x => x.Mission,
+                            new
+                            {
+                                @class = "form-control textarea-large",
+                                placeholder = "Enter school mission"
+                            })
+
+                    </div>
+
+
+                    <!-- PRINCIPAL MESSAGE -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Principal Message
+                        </label>
+
+                        @Html.TextAreaFor(
+                            x => x.PrincipalMessage,
+                            new
+                            {
+                                @class = "form-control textarea-large",
+                                placeholder = "Enter principal message"
+                            })
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="pt-2">
+
+                        <button type="submit"
+                                class="btn btn-save">
+
+                            Save Changes
+
+                        </button>
+
+
+                        <a href="@Url.Action("Dashboard", "Admin")"
+                           class="btn-back ms-2">
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

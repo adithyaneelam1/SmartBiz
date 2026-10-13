@@ -1,0 +1,211 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurobindo High School - School Management Portal</title>
+    <meta name="description" content="Professional School Management Portal and Public Website for Aurobindo High School featuring Public Website, Admin Dashboard, Student & Teacher Management, Attendance System, Examination & Progress Cards, and complete ASP.NET MVC architecture with Razor Views." />
+    <meta property="og:title" content="Aurobindo High School - School Management Portal" />
+    <meta property="og:description" content="Professional School Management Portal and Public Website for Aurobindo High School featuring Public Website, Admin Dashboard, Student & Teacher Management, Attendance System, Examination & Progress Cards, and complete ASP.NET MVC architecture with Razor Views." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+    <!-- Google Fonts: Cinzel (Academic display) & Plus Jakarta Sans (Clean legible body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+
+
+        @*@model IEnumerable<AurobindoSchool.Models.Student>
+        @{
+            ViewData["Title"] = "Daily Attendance Register";
+            ViewData["IsAdminArea"] = true;
+        }*@
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="/Admin/Dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Daily Attendance</li>
+                    </ol>
+                </nav>
+                <h2 class="h4 fw-bold text-dark mb-0">Daily Classroom Attendance</h2>
+                <p class="text-muted small mb-0">Record roll-call attendance with one-click status toggles for Class 10-A.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-success" id="btnMarkAllPresent">
+                    <i class="bi bi-check-all me-1"></i> Mark All Present
+                </button>
+                <button type="button" class="btn btn-primary" id="btnSaveAttendance">
+                    <i class="bi bi-floppy-fill me-1"></i> Save Attendance
+                </button>
+            </div>
+        </div>
+
+        <!-- Class & Date Selector Card -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Select Class</label>
+                        <select id="attendanceClass" class="form-select">
+                            <option value="Class 10" selected>Class 10</option>
+                            <option value="Class 9">Class 9</option>
+                            <option value="Class 11">Class 11</option>
+                            <option value="Class 12">Class 12</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">Section</label>
+                        <select id="attendanceSection" class="form-select">
+                            <option value="A" selected>Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Attendance Date</label>
+                        <input type="date" id="attendanceDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end gap-2">
+                        <button type="button" class="btn btn-dark w-100" id="btnFetchRoster">
+                            <i class="bi bi-arrow-repeat me-1"></i> Load Student Roster
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Stats Bar -->
+        <div class="row g-3 mb-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm bg-success-subtle border border-success-subtle p-3">
+                    <div class="small fw-bold text-success text-uppercase">Present Count</div>
+                    <div class="h3 fw-bold text-success mb-0" id="countPresent">7</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm bg-danger-subtle border border-danger-subtle p-3">
+                    <div class="small fw-bold text-danger text-uppercase">Absent Count</div>
+                    <div class="h3 fw-bold text-danger mb-0" id="countAbsent">1</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm bg-warning-subtle border border-warning-subtle p-3">
+                    <div class="small fw-bold text-warning-emphasis text-uppercase">Late Arrivals</div>
+                    <div class="h3 fw-bold text-warning-emphasis mb-0" id="countLate">0</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm bg-info-subtle border border-info-subtle p-3">
+                    <div class="small fw-bold text-info-emphasis text-uppercase">Attendance Pct</div>
+                    <div class="h3 fw-bold text-info-emphasis mb-0" id="countPercent">87.5%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Roster Table -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="rosterTable">
+                        <thead class="table-light text-uppercase smaller text-muted">
+                            <tr>
+                                <th class="ps-3" style="width: 70px;">Roll</th>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th class="text-center" style="width: 380px;">Mark Status</th>
+                                <th>Remarks / Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamically loaded through jQuery AJAX / Razor -->
+                            @foreach (var student in Model)
+                            {
+                                <tr data-student-id="@student.Id">
+                                    <td class="ps-3 fw-bold font-monospace">#@student.RollNumber</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="@student.PhotoUrl" alt="@student.FullName" class="rounded-circle" width="32" height="32" />
+                                            <span class="fw-semibold">@student.FullName</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">@student.StudentId</span></td>
+                                    <td class="text-center">
+                                        <div class="btn-group w-100" role="group" aria-label="Attendance Status">
+                                            <input type="radio" class="btn-check status-radio" name="status_@student.Id" id="p_@student.Id" value="Present" checked autocomplete="off">
+                                            <label class="btn btn-outline-success btn-sm py-1.5" for="p_@student.Id"><i class="bi bi-check-lg me-1"></i>Present</label>
+
+                                            <input type="radio" class="btn-check status-radio" name="status_@student.Id" id="a_@student.Id" value="Absent" autocomplete="off">
+                                            <label class="btn btn-outline-danger btn-sm py-1.5" for="a_@student.Id"><i class="bi bi-x-lg me-1"></i>Absent</label>
+
+                                            <input type="radio" class="btn-check status-radio" name="status_@student.Id" id="l_@student.Id" value="Late" autocomplete="off">
+                                            <label class="btn btn-outline-warning btn-sm py-1.5" for="l_@student.Id"><i class="bi bi-clock me-1"></i>Late</label>
+
+                                            <input type="radio" class="btn-check status-radio" name="status_@student.Id" id="e_@student.Id" value="Excused" autocomplete="off">
+                                            <label class="btn btn-outline-info btn-sm py-1.5" for="e_@student.Id"><i class="bi bi-info-circle me-1"></i>Leave</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Optional remark (e.g. sick leave)" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        @section Scripts {
+            <script>
+                function updateCounters() {
+                    var present = $('input[value="Present"]:checked').length;
+                    var absent = $('input[value="Absent"]:checked').length;
+                    var late = $('input[value="Late"]:checked').length;
+                    var total = $('tbody tr').length;
+                    var pct = total > 0 ? ((present / total) * 100).toFixed(1) + '%' : '0%';
+
+                    $('#countPresent').text(present);
+                    $('#countAbsent').text(absent);
+                    $('#countLate').text(late);
+                    $('#countPercent').text(pct);
+                }
+
+                $(document).on('change', '.status-radio', function () {
+                    updateCounters();
+                });
+
+                $('#btnMarkAllPresent').on('click', function () {
+                    $('input[value="Present"]').prop('checked', true);
+                    updateCounters();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'info',
+                        title: 'All students set to Present',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+
+                $('#btnSaveAttendance').on('click', function () {
+                    Swal.fire({
+                        title: 'Attendance Saved!',
+                        text: 'Daily roll-call attendance for ' + $('#attendanceClass').val() + '-' + $('#attendanceSection').val() + ' on ' + $('#attendanceDate').val() + ' has been saved.',
+                        icon: 'success',
+                        confirmButtonColor: '#0d6efd'
+                    });
+                });
+            </script>
+        }
+
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+

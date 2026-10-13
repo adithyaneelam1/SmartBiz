@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    //string name = "adithya";
+    //int price = 30;
+    //string names = "neelam";
+}
+
+@*<p>this is my initital-@names</p>
+<p>thi is my first form - @name</p>
+@if (price > 30)
+{
+    <p>The price is too high. @name </p>
+    <p>prirce is low </p>
+
+}
+else if (price < 30  )
+{
+    <p>The price is OK.</p>
+
+}*@
+
+
+
+
+
+
+
+
+
+<form action="/Home/index" method="post">
+    <label for="fname">user name:</label><br>
+
+    <input type="text" id="uname" name="uname"><br>
+
+    <label for="lname">password:</label><br>
+
+    <p>   <input type="password" id="password" name="password"></p>
+    <br />
+    <label for="fathername">father name:</label>
+    <input type="text" id="fname" name="fname"><br>
+
+    <label for="city">city:</label>
+    <select name="city">
+        <option>select city</option>
+        <option value="select city">mhbd</option>
+        <option>gudur</option>
+        <option>narsampet</option>
+    </select> <br><br>
+
+    <label for="gender">Gender:</label>
+    <input type="radio" name="gender" value="male">male<br/>
+    <input type="radio" name="gender" value="female"> female<br><br>
+
+    <label for="skill">Skills:</label><br>
+    <input type="checkbox" name="skills" value="html" />html<br>
+    <input type="checkbox" name="skills" value="csharp" />csharp<br>
+    <input type="checkbox" name="skills" value="sql" />sql<br><br>
+
+    <p>  <input type="submit" class="btn btn-primary" value="login" /></p>
+
+</form>
+@*<p>MY data is.............</p>*@
+<br />
+<br />
+<br />
+@ViewBag.username
+<br />
+
+<br /> <p style="color:red">
+    @ViewBag.msg
+</p>
+
+
+
+

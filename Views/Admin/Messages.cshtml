@@ -1,0 +1,540 @@
+﻿@model IEnumerable<AdharshaHighSchool.Models.ContactMessage>
+
+@{
+    ViewBag.Title = "Messages";
+}
+
+<style>
+
+    /* =========================================
+       PAGE
+       ========================================= */
+
+    .messages-page {
+        padding-bottom: 30px;
+    }
+
+
+    /* =========================================
+       HEADER
+       ========================================= */
+
+    .messages-header {
+        background: linear-gradient(135deg, #172554, #2563eb);
+        color: white;
+        padding: 28px 30px;
+        margin-bottom: 25px;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+    }
+
+        .messages-header h2 {
+            margin: 0 0 5px;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .messages-header p {
+            margin: 0;
+            color: #dbeafe;
+            font-size: 14px;
+        }
+
+    .dashboard-btn {
+        border-radius: 8px;
+        padding: 9px 16px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       MESSAGE SUMMARY
+       ========================================= */
+
+    .message-summary {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 18px 22px;
+        margin-bottom: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    }
+
+    .summary-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 14px;
+        background: #dbeafe;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+    .summary-text span {
+        display: block;
+        color: #6b7280;
+        font-size: 12px;
+    }
+
+    .summary-text strong {
+        color: #111827;
+        font-size: 22px;
+    }
+
+
+    /* =========================================
+       MESSAGE CARD
+       ========================================= */
+
+    .message-card {
+        position: relative;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+        transition: all 0.25s ease;
+    }
+
+        .message-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .message-card.unread {
+            border-left: 4px solid #2563eb;
+        }
+
+        .message-card.read {
+            border-left: 4px solid #d1d5db;
+        }
+
+
+    /* =========================================
+       MESSAGE BODY
+       ========================================= */
+
+    .message-body {
+        padding: 22px 24px;
+    }
+
+
+    /* =========================================
+       SENDER
+       ========================================= */
+
+    .sender-name {
+        color: #111827;
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .sender-info {
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+        .sender-info span {
+            margin-right: 15px;
+        }
+
+
+    /* =========================================
+       STATUS
+       ========================================= */
+
+    .badge-unread,
+    .badge-read {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 11px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .badge-unread {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .badge-read {
+        background: #f3f4f6;
+        color: #6b7280;
+    }
+
+
+    /* =========================================
+       MESSAGE TEXT
+       ========================================= */
+
+    .message-text {
+        margin-top: 15px;
+        padding: 14px 16px;
+        background: #f8fafc;
+        border-radius: 9px;
+        color: #4b5563;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+
+    /* =========================================
+       MESSAGE FOOTER
+       ========================================= */
+
+    .message-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 18px;
+        padding-top: 15px;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .message-date {
+        color: #9ca3af;
+        font-size: 12px;
+    }
+
+
+    /* =========================================
+       ACTION BUTTONS
+       ========================================= */
+
+    .message-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+        .message-actions .btn {
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 11px;
+        }
+
+
+    /* =========================================
+       EMPTY STATE
+       ========================================= */
+
+    .empty-box {
+        padding: 70px 20px;
+        text-align: center;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f3f4f6;
+        border-radius: 50%;
+        font-size: 38px;
+    }
+
+    .empty-box h4 {
+        margin-top: 18px;
+        color: #374151;
+        font-weight: 600;
+    }
+
+    .empty-box p {
+        color: #9ca3af;
+        font-size: 13px;
+    }
+
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
+    @@media (max-width: 768px) {
+
+        .messages-header {
+            padding: 22px;
+        }
+
+            .messages-header .d-flex {
+                display: block !important;
+            }
+
+        .dashboard-btn {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .message-body {
+            padding: 18px;
+        }
+
+        .message-footer {
+            display: block;
+        }
+
+        .message-actions {
+            margin-top: 15px;
+        }
+
+            .message-actions .btn {
+                margin-bottom: 4px;
+            }
+    }
+</style>
+
+
+<div class="messages-page">
+
+
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="messages-header">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h2>
+                    📩 Messages
+                </h2>
+
+                <p>
+                    View and manage messages received from website visitors.
+                </p>
+
+            </div>
+
+            <div>
+
+                <a href="@Url.Action("Dashboard", "Admin")"
+                   class="btn btn-light dashboard-btn">
+
+                    ← Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MESSAGE SUMMARY
+         ========================================= -->
+
+    <div class="message-summary">
+
+        <div class="summary-icon">
+            ✉️
+        </div>
+
+        <div class="summary-text">
+
+            <span>
+                Total Messages
+            </span>
+
+            <strong class="dashboard-counter"
+                    data-target="@(Model == null ? 0 : Model.Count())">
+                0
+            </strong>
+
+            <strong>
+                @(Model == null ? 0 : Model.Count())
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MESSAGES
+         ========================================= -->
+
+    @if (Model != null && Model.Any())
+    {
+
+        foreach (var item in Model)
+        {
+
+            <div class="message-card @(item.IsRead ? "read" : "unread")">
+
+                <div class="message-body">
+
+
+                    <!-- SENDER HEADER -->
+
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <div>
+
+                            <div class="sender-name">
+                                @item.Name
+                            </div>
+
+                            <div class="sender-info">
+
+                                @if (!string.IsNullOrEmpty(item.Email))
+                                {
+                                    <span>
+                                        📧 @item.Email
+                                    </span>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.Mobile))
+                                {
+                                    <span>
+                                        📱 @item.Mobile
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div>
+
+                            @if (item.IsRead)
+                            {
+                                <span class="badge-read">
+                                    ✓ Read
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge-unread">
+                                    ● New
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="message-text">
+
+                        @if (!string.IsNullOrEmpty(item.Message))
+                        {
+                            if (item.Message.Length > 150)
+                            {
+                                @item.Message.Substring(0, 150)@("...")
+                            }
+                            else
+                            {
+                                @item.Message
+                            }
+                        }
+
+                    </div>
+
+
+                    <!-- FOOTER -->
+
+                    <div class="message-footer">
+
+
+                        <div class="message-date">
+
+                            📅 @item.CreatedDate.ToString("dd-MM-yyyy hh:mm tt")
+
+                        </div>
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="message-actions">
+
+
+                            <a href="@Url.Action("ViewMessage", "Admin", new { id = item.MessageId })"
+                               class="btn btn-outline-primary">
+
+                                👁️ View
+
+                            </a>
+
+
+                            @if (!item.IsRead)
+                            {
+
+                                <a href="@Url.Action("MarkMessageAsRead", "Admin", new { id = item.MessageId })"
+                                   class="btn btn-outline-success">
+
+                                    ✓ Mark Read
+
+                                </a>
+
+                            }
+
+
+                            <a href="@Url.Action("DeleteMessage", "Admin", new { id = item.MessageId })"
+                               class="btn btn-outline-danger"
+                               onclick="return confirm('Are you sure you want to delete this message?');">
+
+                                🗑️ Delete
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+    }
+    else
+    {
+
+        <!-- =========================================
+             EMPTY STATE
+             ========================================= -->
+
+        <div class="empty-box">
+
+            <div class="empty-icon">
+                📭
+            </div>
+
+            <h4>
+                No Messages
+            </h4>
+
+            <p>
+                There are no messages from website visitors yet.
+            </p>
+
+        </div>
+
+    }
+
+</div>

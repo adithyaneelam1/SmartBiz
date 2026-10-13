@@ -1,0 +1,743 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+
+    <title>@ViewBag.Title - Adharsha High School</title>
+
+    @Styles.Render("~/Content/css")
+
+    <style>
+
+        /* =========================
+           MAIN NAVBAR
+        ========================= */
+
+        .school-navbar {
+            background: #ffffff;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.10);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .school-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none !important;
+            color: #222 !important;
+        }
+
+        .school-logo {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            margin-right: 12px;
+        }
+
+        .school-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #173b75;
+            line-height: 1.2;
+        }
+
+        .school-subtitle {
+            font-size: 12px;
+            color: #777;
+            margin-top: 3px;
+        }
+
+
+        /* =========================
+           HAMBURGER BUTTON
+        ========================= */
+
+        .school-menu-toggle {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            background: #173b75;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: 0.3s;
+        }
+
+            .school-menu-toggle:hover {
+                background: #0d2852;
+                transform: scale(1.05);
+            }
+
+
+        /* =========================
+           SIDE MENU
+        ========================= */
+
+        .school-side-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 300px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.20);
+            z-index: 2000;
+            transition: left 0.35s ease;
+            overflow-y: auto;
+        }
+
+
+            /* OPEN SIDE MENU */
+
+            .school-side-menu.active {
+                left: 0;
+            }
+
+
+        /* =========================
+           SIDE MENU HEADER
+        ========================= */
+
+        .school-side-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: #173b75;
+            color: white;
+        }
+
+        .school-side-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .school-side-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            background: white;
+            border-radius: 6px;
+            padding: 3px;
+            margin-right: 10px;
+        }
+
+        .school-side-name {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .school-side-subtitle {
+            font-size: 11px;
+            opacity: 0.85;
+            margin-top: 3px;
+        }
+
+
+        /* =========================
+           CLOSE BUTTON
+        ========================= */
+
+        .school-menu-close {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+            .school-menu-close:hover {
+                background: rgba(255,255,255,0.30);
+                transform: rotate(90deg);
+            }
+
+
+        /* =========================
+           SIDE MENU LINKS
+        ========================= */
+
+        .school-side-links {
+            list-style: none;
+            padding: 15px 0;
+            margin: 0;
+        }
+
+            .school-side-links li {
+                margin: 3px 12px;
+            }
+
+            .school-side-links a {
+                display: flex;
+                align-items: center;
+                padding: 13px 15px;
+                border-radius: 8px;
+                color: #333;
+                text-decoration: none !important;
+                font-size: 15px;
+                font-weight: 500;
+                transition: 0.3s;
+            }
+
+                .school-side-links a:hover {
+                    background: #eef4ff;
+                    color: #173b75;
+                    padding-left: 20px;
+                }
+
+        .menu-icon {
+            width: 30px;
+            font-size: 18px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+
+        /* =========================
+           OVERLAY
+        ========================= */
+
+        .school-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.50);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+            .school-menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        .school-page {
+            min-height: 70vh;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .school-footer {
+            background: #173b75;
+            color: white;
+            padding: 35px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 10px;
+        }
+
+        .footer-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.20);
+            margin-top: 25px;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @@media (max-width: 768px) {
+
+            .school-navbar {
+                padding: 8px 0;
+            }
+
+            .school-menu-toggle {
+                width: 42px;
+                height: 42px;
+                font-size: 22px;
+                margin-right: 10px;
+            }
+
+            .school-logo {
+                width: 48px;
+                height: 48px;
+                margin-right: 8px;
+            }
+
+            .school-name {
+                font-size: 17px;
+            }
+
+            .school-subtitle {
+                font-size: 10px;
+            }
+
+            .school-side-menu {
+                width: 285px;
+                left: -300px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- =====================================
+         TOP NAVBAR
+    ====================================== -->
+
+    <nav class="school-navbar">
+
+        <div class="container">
+
+            <div class="d-flex align-items-center">
+
+                <!-- HAMBURGER -->
+
+                <button type="button"
+                        class="school-menu-toggle"
+                        id="schoolMenuOpen"
+                        aria-label="Open Menu">
+
+                    ☰
+
+                </button>
+
+
+                <!-- LOGO + SCHOOL NAME -->
+
+                <a href="@Url.Action("Index", "School")"
+                   class="school-brand">
+
+                    <img src="~/Folder1/school-logo.png"
+                         class="school-logo"
+                         alt="Adharsha High School Logo" />
+
+                    <div>
+
+                        <div class="school-name">
+                            Adharsha High School
+                        </div>
+
+                        <div class="school-subtitle">
+                            Quality Education • Bright Future
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================
+         DARK OVERLAY
+    ====================================== -->
+
+    <div class="school-menu-overlay"
+         id="schoolMenuOverlay">
+    </div>
+
+
+
+    <!-- =====================================
+         LEFT SIDE MENU
+    ====================================== -->
+
+    <div class="school-side-menu"
+         id="schoolSideMenu">
+
+
+        <!-- SIDE MENU HEADER -->
+
+        <div class="school-side-header">
+
+            <div class="school-side-brand">
+
+                <img src="~/Folder1/school-logo.png"
+                     class="school-side-logo"
+                     alt="School Logo" />
+
+                <div>
+
+                    <div class="school-side-name">
+                        Adharsha High School
+                    </div>
+
+                    <div class="school-side-subtitle">
+                        Gudur Mandal
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CLOSE BUTTON -->
+
+            <button type="button"
+                    class="school-menu-close"
+                    id="schoolMenuClose"
+                    aria-label="Close Menu">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- MENU ITEMS -->
+
+        <ul class="school-side-links">
+
+
+            <!-- HOME -->
+
+            <li>
+
+                <a href="@Url.Action("Index", "School")">
+
+                    <span class="menu-icon">🏠</span>
+
+                    <span>Home</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- ABOUT -->
+
+            <li>
+
+                <a href="@Url.Action("About", "School")">
+
+                    <span class="menu-icon">🏫</span>
+
+                    <span>About Us</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- ACADEMICS -->
+
+            <li>
+
+                <a href="@Url.Action("Academics", "School")">
+
+                    <span class="menu-icon">📚</span>
+
+                    <span>Academics</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- FACILITIES -->
+
+            <li>
+
+                <a href="@Url.Action("Facilities", "School")">
+
+                    <span class="menu-icon">🏢</span>
+
+                    <span>Facilities</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- GALLERY -->
+
+            <li>
+
+                <a href="@Url.Action("Gallery", "School")">
+
+                    <span class="menu-icon">🖼️</span>
+
+                    <span>Gallery</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- CONTACT -->
+
+            <li>
+
+                <a href="@Url.Action("Contact", "School")">
+
+                    <span class="menu-icon">📞</span>
+
+                    <span>Contact Us</span>
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </div>
+
+
+
+    <!-- =====================================
+         PAGE CONTENT
+    ====================================== -->
+
+    <main class="school-page">
+
+        @RenderBody()
+
+    </main>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="school-footer">
+
+        <div class="container">
+
+            <div class="row">
+
+
+                <!-- SCHOOL INFO -->
+
+                <div class="col-md-6 mb-4">
+
+                    <img src="~/Folder1/school-logo.png"
+                         class="footer-logo"
+                         alt="Adharsha High School Logo" />
+
+                    <div class="footer-title">
+                        Adharsha High School
+                    </div>
+
+                    <div class="footer-text">
+
+                        Quality Education • Bright Future
+
+                        <br />
+
+                        Gudur Mandal
+
+                        <br />
+
+                        Principal: Srinivas
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK INFO -->
+
+                <div class="col-md-6 mb-4">
+
+                    <div class="footer-title">
+                        Quick Links
+                    </div>
+
+                    <div class="footer-text">
+
+                        Home &nbsp; | &nbsp;
+                        About Us &nbsp; | &nbsp;
+                        Academics
+
+                        <br />
+
+                        Facilities &nbsp; | &nbsp;
+                        Gallery &nbsp; | &nbsp;
+                        Contact Us
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COPYRIGHT -->
+
+            <div class="footer-bottom">
+
+                © @DateTime.Now.Year Adharsha High School.
+                All Rights Reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================
+         SCRIPTS
+    ====================================== -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+
+            var menu = document.getElementById("schoolSideMenu");
+
+            var overlay = document.getElementById("schoolMenuOverlay");
+
+            var openButton = document.getElementById("schoolMenuOpen");
+
+            var closeButton = document.getElementById("schoolMenuClose");
+
+
+
+            // OPEN MENU
+
+            openButton.addEventListener("click", function () {
+
+                menu.classList.add("active");
+
+                overlay.classList.add("active");
+
+                document.body.style.overflow = "hidden";
+
+            });
+
+
+
+            // CLOSE MENU
+
+            closeButton.addEventListener("click", function () {
+
+                closeSchoolMenu();
+
+            });
+
+
+
+            // CLOSE WHEN CLICKING OUTSIDE
+
+            overlay.addEventListener("click", function () {
+
+                closeSchoolMenu();
+
+            });
+
+
+
+            // CLOSE MENU FUNCTION
+
+            function closeSchoolMenu() {
+
+                menu.classList.remove("active");
+
+                overlay.classList.remove("active");
+
+                document.body.style.overflow = "";
+
+            }
+
+
+
+            // CLOSE WHEN ESCAPE KEY PRESSED
+
+            document.addEventListener("keydown", function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeSchoolMenu();
+
+                }
+
+            });
+
+
+
+            // CLOSE MENU AFTER CLICKING A LINK
+
+            var menuLinks = document.querySelectorAll(
+                ".school-side-links a"
+            );
+
+            menuLinks.forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    closeSchoolMenu();
+
+                });
+
+            });
+
+        });
+
+    </script>
+
+
+</body>
+</html>

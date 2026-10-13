@@ -1,0 +1,549 @@
+﻿@model AdharshaHighSchool.Models.SchoolInfo
+
+@{
+    ViewBag.Title = "School Information";
+}
+
+<style>
+
+    /* =========================================
+       PAGE
+       ========================================= */
+
+    .school-info-page {
+        padding-bottom: 30px;
+    }
+
+
+    /* =========================================
+       HEADER
+       ========================================= */
+
+    .school-info-header {
+        background: linear-gradient(135deg, #172554, #2563eb);
+        color: white;
+
+        padding: 28px 30px;
+        margin-bottom: 25px;
+
+        border-radius: 16px;
+
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+    }
+
+    .school-info-header h2 {
+        margin: 0 0 5px;
+
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .school-info-header p {
+        margin: 0;
+
+        color: #dbeafe;
+        font-size: 14px;
+    }
+
+    .dashboard-btn {
+        padding: 9px 16px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       INFORMATION CARD
+       ========================================= */
+
+    .school-info-card {
+        background: #ffffff;
+
+        padding: 30px;
+
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+
+        box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    }
+
+
+    /* =========================================
+       SECTION TITLE
+       ========================================= */
+
+    .info-section-title {
+        display: flex;
+        align-items: center;
+
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+
+        border-bottom: 1px solid #eef2f7;
+    }
+
+    .info-section-icon {
+        width: 46px;
+        height: 46px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-right: 12px;
+
+        background: #dbeafe;
+        border-radius: 11px;
+
+        font-size: 21px;
+    }
+
+    .info-section-title h5 {
+        margin: 0;
+
+        color: #111827;
+
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    .info-section-title p {
+        margin: 3px 0 0;
+
+        color: #9ca3af;
+
+        font-size: 12px;
+    }
+
+
+    /* =========================================
+       INFORMATION BOX
+       ========================================= */
+
+    .info-box {
+        height: 100%;
+
+        padding: 18px;
+
+        background: #f8fafc;
+
+        border: 1px solid #eef2f7;
+        border-radius: 11px;
+    }
+
+    .info-label {
+        display: block;
+
+        margin-bottom: 6px;
+
+        color: #6b7280;
+
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .info-value {
+        color: #111827;
+
+        font-size: 15px;
+        font-weight: 600;
+
+        word-break: break-word;
+    }
+
+    .info-value.empty {
+        color: #9ca3af;
+        font-weight: 400;
+    }
+
+
+    /* =========================================
+       ABOUT / VISION / MISSION
+       ========================================= */
+
+    .large-info-box {
+        padding: 20px;
+
+        background: #f8fafc;
+
+        border: 1px solid #eef2f7;
+        border-radius: 11px;
+    }
+
+    .large-info-box .info-label {
+        margin-bottom: 9px;
+    }
+
+    .large-info-box p {
+        margin: 0;
+
+        color: #4b5563;
+
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
+    @@media (max-width: 768px) {
+
+        .school-info-header {
+            padding: 22px;
+        }
+
+        .school-info-header .d-flex {
+            display: block !important;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .school-info-card {
+            padding: 20px;
+        }
+
+    }
+
+</style>
+
+
+<div class="school-info-page">
+
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
+    <div class="school-info-header">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h2>
+                    🏫 School Information
+                </h2>
+
+                <p>
+                    View and manage Adharsha High School information.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <a href="@Url.Action("Dashboard", "Admin")"
+                   class="btn btn-light dashboard-btn">
+
+                    ← Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SCHOOL INFORMATION
+         ========================================= -->
+
+    <div class="school-info-card">
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="info-section-title">
+
+            <div class="info-section-icon">
+                🏫
+            </div>
+
+            <div>
+
+                <h5>
+                    Basic School Information
+                </h5>
+
+                <p>
+                    Important details about the school.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BASIC DETAILS -->
+
+        <div class="row g-4">
+
+
+            <!-- SCHOOL NAME -->
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        School Name
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.SchoolName))
+                    {
+                        <div class="info-value">
+                            @Model.SchoolName
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-value empty">
+                            Not available
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- PRINCIPAL -->
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Principal
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.PrincipalName))
+                    {
+                        <div class="info-value">
+                            @Model.PrincipalName
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-value empty">
+                            Not available
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Address
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.Address))
+                    {
+                        <div class="info-value">
+                            @Model.Address
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-value empty">
+                            Not available
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Phone
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.Phone))
+                    {
+                        <div class="info-value">
+                            @Model.Phone
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-value empty">
+                            Not available
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.Email))
+                    {
+                        <div class="info-value">
+                            @Model.Email
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-value empty">
+                            Not available
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- PRINCIPAL MESSAGE -->
+
+            <div class="col-md-6">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Principal Message
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.PrincipalMessage))
+                    {
+                        <div class="info-value">
+                            @Model.PrincipalMessage
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-value empty">
+                            Not available
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- ABOUT US -->
+
+            <div class="col-12">
+
+                <div class="large-info-box">
+
+                    <span class="info-label">
+                        About Us
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.AboutUs))
+                    {
+                        <p>
+                            @Model.AboutUs
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Information not available.
+                        </p>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- VISION -->
+
+            <div class="col-md-6">
+
+                <div class="large-info-box">
+
+                    <span class="info-label">
+                        Vision
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.Vision))
+                    {
+                        <p>
+                            @Model.Vision
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Information not available.
+                        </p>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- MISSION -->
+
+            <div class="col-md-6">
+
+                <div class="large-info-box">
+
+                    <span class="info-label">
+                        Mission
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.Mission))
+                    {
+                        <p>
+                            @Model.Mission
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Information not available.
+                        </p>
+                    }
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

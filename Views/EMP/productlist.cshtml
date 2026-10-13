@@ -1,0 +1,94 @@
+﻿
+@model List<SunnyPractice.Models.products>
+
+@{
+
+    ViewBag.Title = "View";
+}
+<div>
+    <a href="/EMP/products">ADD PRODUCTS: </a>
+</div>
+
+<h2>products list :</h2>
+
+<div class="alert alert-success">
+    @TempData["Message"]
+</div>
+
+@if (TempData["Message"] != null)
+{
+
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Pid</th>
+        <th>PName</th>
+        <th>category</th>
+        <th>price</th>
+        <th>username</th>
+        <th>password </th>
+        <th>IMAGES</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Pid</td>
+            <td>@item.PName</td>
+            <td>@item.category</td>
+            <td>@item.price</td>
+            <td>@item.Username</td>
+            <td>@item.Password</td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.imagepath))
+                {
+                    <img src="@Url.Content(item.imagepath)"
+                         alt="@item.PName"
+                         style="
+        width:80px;
+        height:80px;
+        object-fit:cover;
+        border-radius:8px;
+     " />
+                }
+                else
+                {
+                    <div>No Image</div>
+                }
+            </td>
+
+            <td>
+                <form action="/EMP/products" method="get">
+                    <input type="hidden" name="Pid" id="Pid" value="@item.Pid">
+                    <input type="submit" class="btn btn-primary" value="Edit" />
+                </form>
+
+            </td>
+            <td>
+                <form action="/EMP/productdelete" method="post">
+                    <input type="hidden" name="pid" id="pid" value="@item.Pid">
+                    <input type="submit" class="btn btn-danger" value="DELETE" />
+
+                </form>
+
+
+            </td>
+
+        </tr>
+
+
+    }
+</table>
+
+
+
+
+
+
+

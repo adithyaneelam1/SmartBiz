@@ -1,0 +1,204 @@
+﻿@model AdharshaHighSchool.Models.Admin
+
+@{
+    ViewBag.Title = "Admin Settings";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-person-gear"></i>
+                Admin Settings
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    @ViewBag.Message
+                </div>
+            }
+
+            @using (Html.BeginForm("Settings", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.AdminId)
+
+                <!-- Name -->
+                <div class="mb-3">
+                    @Html.LabelFor(
+                        model => model.Name,
+                        new { @class = "form-label fw-bold" }
+                    )
+
+                    @Html.TextBoxFor(
+                        model => model.Name,
+                        new
+                        {
+                            @class = "form-control",
+                            placeholder = "Enter admin name"
+                        }
+                    )
+
+                    @Html.ValidationMessageFor(
+                        model => model.Name,
+                        "",
+                        new { @class = "text-danger" }
+                    )
+                </div>
+
+
+                <!-- Username -->
+                <div class="mb-3">
+                    @Html.LabelFor(
+                        model => model.Username,
+                        new { @class = "form-label fw-bold" }
+                    )
+
+                    @Html.TextBoxFor(
+                        model => model.Username,
+                        new
+                        {
+                            @class = "form-control",
+                            placeholder = "Enter username"
+                        }
+                    )
+
+                    @Html.ValidationMessageFor(
+                        model => model.Username,
+                        "",
+                        new { @class = "text-danger" }
+                    )
+                </div>
+
+
+                <!-- Email -->
+                <div class="mb-3">
+                    @Html.LabelFor(
+                        model => model.Email,
+                        new { @class = "form-label fw-bold" }
+                    )
+
+                    @Html.TextBoxFor(
+                        model => model.Email,
+                        new
+                        {
+                            @class = "form-control",
+                            type = "email",
+                            placeholder = "Enter email"
+                        }
+                    )
+                </div>
+
+
+                <!-- Mobile -->
+                <div class="mb-3">
+                    @Html.LabelFor(
+                        model => model.Mobile,
+                        new { @class = "form-label fw-bold" }
+                    )
+
+                    @Html.TextBoxFor(
+                        model => model.Mobile,
+                        new
+                        {
+                            @class = "form-control",
+                            placeholder = "Enter mobile number"
+                        }
+                    )
+                </div>
+
+
+                <!-- New Password -->
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        New Password
+                    </label>
+
+                    <div class="input-group">
+
+                        <input type="password"
+                               id="password"
+                               name="Password"
+                               class="form-control"
+                               placeholder="Enter new password" />
+
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                id="togglePassword">
+
+                            👁️
+
+                        </button>
+
+                    </div>
+
+                    <small class="text-muted">
+                        Password empty ga unchithe existing password continue avutundi.
+                    </small>
+
+                </div>
+
+
+                <!-- Save Button -->
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-save"></i>
+                        Save Changes
+
+                    </button>
+
+                    <a href="@Url.Action("Dashboard", "Admin")"
+                       class="btn btn-secondary ms-2">
+
+                        Back to Dashboard
+
+                    </a>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document
+        .getElementById("togglePassword")
+        .addEventListener("click", function () {
+
+            var password =
+                document.getElementById("password");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                this.innerHTML = "🙈";
+
+            }
+            else {
+
+                password.type = "password";
+
+                this.innerHTML = "👁️";
+
+            }
+
+        });
+
+</script>

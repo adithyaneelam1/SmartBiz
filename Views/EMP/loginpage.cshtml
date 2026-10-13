@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "loginpage";
+}
+
+
+<h3>
+    @*<a href="/EMP/loginpage"*@<!-->LOGIN PAGE: </a>-->
+</h3>
+
+<h2> WELCOME TO LOGIN PAGE :</h2>
+
+<div class="alert alert-success">
+    @TempData["Message"]
+</div>
+
+<form action="/EMP/loginpage" login method="post">
+    <br> <br />
+
+
+    <label for="username" >username:</label>
+    <input type="text" id="username" name="username" value="@ViewBag.username" class="form-control" /><br><br />
+
+    <label for="password">password: </label>
+
+    <input type="password" id="password" name="password" value="@ViewBag.password" class="form-control"/><br><br>
+
+<input type="submit" value="submit"  class="btn btn-primary" />
+
+
+</form>
+
+<p>@ViewBag.msg</p>
+
+<br /> <p style="color:red">
+    @ViewBag.msg
+</p>
+
+
+
+

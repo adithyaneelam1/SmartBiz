@@ -1,0 +1,731 @@
+﻿@model AdharshaHighSchool.Models.SchoolInfo
+
+@{
+    Layout = "~/Views/Shared/_SchoolLayout.cshtml";
+    ViewBag.Title = "About Us";
+}
+
+<style>
+
+    /* ==========================================
+       ABOUT HERO
+       ========================================== */
+
+    .about-hero {
+        min-height: 330px;
+        background: linear-gradient( 135deg, rgba(13,110,253,.90), rgba(102,16,242,.78) ), url('/Folder1/school-building.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .about-hero-content {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .about-hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 15px;
+    }
+
+    .about-hero p {
+        font-size: 19px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+
+    /* ==========================================
+       COMMON
+       ========================================== */
+
+    .about-section {
+        padding: 65px 0;
+    }
+
+    .about-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+        .about-title .subtitle {
+            color: #0d6efd;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .about-title h2 {
+            color: #102a43;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .about-title p {
+            color: #6c757d;
+            max-width: 700px;
+            margin: auto;
+        }
+
+
+    /* ==========================================
+       INTRODUCTION
+       ========================================== */
+
+    .about-image {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+
+    .about-content {
+        padding: 20px 10px;
+    }
+
+        .about-content h2 {
+            color: #102a43;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .about-content p {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+
+    /* ==========================================
+       VISION / MISSION
+       ========================================== */
+
+    .about-info-card {
+        height: 100%;
+        border-radius: 18px;
+        padding: 35px 30px;
+        box-shadow: 0 7px 25px rgba(0,0,0,.08);
+        transition: .3s;
+    }
+
+        .about-info-card:hover {
+            transform: translateY(-7px);
+        }
+
+    .about-info-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .about-info-card h3 {
+        font-weight: 700;
+        color: #102a43;
+        margin-bottom: 15px;
+    }
+
+    .about-info-card p {
+        color: #666;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .vision-box {
+        background: linear-gradient( 135deg, #e8f2ff, #ffffff );
+    }
+
+        .vision-box .about-info-icon {
+            background: #cfe2ff;
+            color: #0d6efd;
+        }
+
+    .mission-box {
+        background: linear-gradient( 135deg, #eafaf1, #ffffff );
+    }
+
+        .mission-box .about-info-icon {
+            background: #d1e7dd;
+            color: #198754;
+        }
+
+
+    /* ==========================================
+       PRINCIPAL
+       ========================================== */
+
+    .principal-about {
+        background: linear-gradient( 135deg, #f5f9ff, #faf5ff );
+    }
+
+    .principal-card-about {
+        max-width: 950px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 35px rgba(0,0,0,.08);
+    }
+
+    .principal-icon-about {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient( 135deg, #6f42c1, #d63384 );
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        margin: auto;
+    }
+
+    .principal-card-about h3 {
+        color: #102a43;
+        font-weight: 800;
+    }
+
+    .principal-role-about {
+        color: #6f42c1;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .principal-message-about {
+        color: #555;
+        font-size: 17px;
+        line-height: 1.9;
+        font-style: italic;
+    }
+
+
+    /* ==========================================
+       WHY CHOOSE US
+       ========================================== */
+
+    .why-card {
+        text-align: center;
+        padding: 30px 20px;
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 6px 22px rgba(0,0,0,.08);
+        height: 100%;
+        transition: .3s;
+    }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+        }
+
+    .why-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 28px;
+    }
+
+    .why-card h5 {
+        color: #102a43;
+        font-weight: 700;
+    }
+
+    .why-card p {
+        color: #6c757d;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .why-blue .why-icon {
+        background: #cfe2ff;
+        color: #0d6efd;
+    }
+
+    .why-green .why-icon {
+        background: #d1e7dd;
+        color: #198754;
+    }
+
+    .why-orange .why-icon {
+        background: #ffe5c2;
+        color: #fd7e14;
+    }
+
+    .why-purple .why-icon {
+        background: #e2d9f3;
+        color: #6f42c1;
+    }
+
+
+    /* ==========================================
+       CTA
+       ========================================== */
+
+    .about-cta {
+        background: linear-gradient( 135deg, #0d6efd, #6610f2 );
+        color: white;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+        .about-cta h2 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .about-cta p {
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        .about-cta .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @@media (max-width: 768px) {
+
+        .about-hero {
+            min-height: 280px;
+        }
+
+            .about-hero h1 {
+                font-size: 36px;
+            }
+
+            .about-hero p {
+                font-size: 16px;
+            }
+
+        .about-section {
+            padding: 45px 15px;
+        }
+
+        .about-title h2 {
+            font-size: 28px;
+        }
+
+        .about-image {
+            height: 280px;
+            margin-bottom: 25px;
+        }
+
+        .principal-card-about {
+            padding: 25px;
+        }
+
+        .about-cta h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+
+<!-- ==================================================
+     HERO
+     ================================================== -->
+
+<section class="about-hero">
+
+    <div class="container">
+
+        <div class="about-hero-content">
+
+            <h1>
+                About Our School
+            </h1>
+
+            <p>
+                Discover the values, vision and commitment
+                behind Adharsha High School.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     SCHOOL INTRODUCTION
+     ================================================== -->
+
+<section class="about-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- Image -->
+
+            <div class="col-lg-6 mb-4 mb-lg-0">
+
+                <img src="~/Folder1/school-building.jpg"
+                     class="about-image"
+                     alt="Adharsha High School" />
+
+            </div>
+
+
+            <!-- Content -->
+
+            <div class="col-lg-6">
+
+                <div class="about-content">
+
+                    <div class="about-title text-left mb-3">
+
+                        <div class="subtitle">
+                            Who We Are
+                        </div>
+
+                        <h2>
+                            Adharsha High School
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        @Model.AboutUs
+                    </p>
+
+                    <p>
+                        Our school aims to provide students
+                        with a supportive environment where
+                        they can learn, develop their skills
+                        and grow with confidence.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     VISION & MISSION
+     ================================================== -->
+
+<section class="about-section bg-light">
+
+    <div class="container">
+
+        <div class="about-title">
+
+            <div class="subtitle">
+                Our Purpose
+            </div>
+
+            <h2>
+                Vision & Mission
+            </h2>
+
+            <p>
+                The principles that guide our educational journey.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+
+            <!-- Vision -->
+
+            <div class="col-md-6 mb-4">
+
+                <div class="about-info-card vision-box">
+
+                    <div class="about-info-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Our Vision
+                    </h3>
+
+                    <p>
+                        @Model.Vision
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Mission -->
+
+            <div class="col-md-6 mb-4">
+
+                <div class="about-info-card mission-box">
+
+                    <div class="about-info-icon">
+                        🚀
+                    </div>
+
+                    <h3>
+                        Our Mission
+                    </h3>
+
+                    <p>
+                        @Model.Mission
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     PRINCIPAL MESSAGE
+     ================================================== -->
+
+<section class="about-section principal-about">
+
+    <div class="container">
+
+        <div class="about-title">
+
+            <div class="subtitle">
+                Leadership
+            </div>
+
+            <h2>
+                Principal's Message
+            </h2>
+
+        </div>
+
+
+        <div class="principal-card-about">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-3 text-center mb-4 mb-md-0">
+
+                    <div class="principal-icon-about">
+                        👨‍🏫
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-9">
+
+                    <h3>
+                        @Model.PrincipalName
+                    </h3>
+
+                    <div class="principal-role-about">
+                        Principal
+                    </div>
+
+                    <p class="principal-message-about">
+                        "@Model.PrincipalMessage"
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     WHY CHOOSE US
+     ================================================== -->
+
+<section class="about-section">
+
+    <div class="container">
+
+        <div class="about-title">
+
+            <div class="subtitle">
+                Our Strengths
+            </div>
+
+            <h2>
+                Why Choose Adharsha High School?
+            </h2>
+
+            <p>
+                We focus on education, values and
+                the overall development of students.
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+
+            <!-- Education -->
+
+            <div class="col-lg-3 col-6 mb-4">
+
+                <div class="why-card why-blue">
+
+                    <div class="why-icon">
+                        📚
+                    </div>
+
+                    <h5>
+                        Quality Education
+                    </h5>
+
+                    <p>
+                        Supporting students with
+                        meaningful learning.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Values -->
+
+            <div class="col-lg-3 col-6 mb-4">
+
+                <div class="why-card why-green">
+
+                    <div class="why-icon">
+                        🌱
+                    </div>
+
+                    <h5>
+                        Strong Values
+                    </h5>
+
+                    <p>
+                        Encouraging discipline,
+                        respect and responsibility.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Activities -->
+
+            <div class="col-lg-3 col-6 mb-4">
+
+                <div class="why-card why-orange">
+
+                    <div class="why-icon">
+                        ⭐
+                    </div>
+
+                    <h5>
+                        Student Activities
+                    </h5>
+
+                    <p>
+                        Learning through activities,
+                        creativity and teamwork.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Future -->
+
+            <div class="col-lg-3 col-6 mb-4">
+
+                <div class="why-card why-purple">
+
+                    <div class="why-icon">
+                        🚀
+                    </div>
+
+                    <h5>
+                        Bright Future
+                    </h5>
+
+                    <p>
+                        Preparing students for
+                        future opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     CTA
+     ================================================== -->
+
+<section class="about-cta">
+
+    <div class="container">
+
+        <h2>
+            Learn More About Our School
+        </h2>
+
+        <p>
+            Explore our academics, facilities and
+            school activities.
+        </p>
+
+        <a href="@Url.Action("Contact", "School")"
+           class="btn btn-light btn-lg">
+
+            ☎ Contact Us
+
+        </a>
+
+    </div>
+
+</section>
